@@ -32,4 +32,17 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
     public $components = array('DebugKit.Toolbar');
+    public function validar($modelo) {
+        $devuelve = '';
+        if ($this->$modelo->validates()) {
+            $this->$modelo->set($this->request->data);
+            $errores = $this->$modelo->invalidFields();
+            if (!empty($errores)) {
+                $devuelve = current(current($errores));
+            }
+        } else {
+            
+        }
+        return $devuelve;
+    }
 }
