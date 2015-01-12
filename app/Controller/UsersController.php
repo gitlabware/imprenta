@@ -12,6 +12,9 @@ class UsersController extends AppController {
         parent::beforeFilter();
         $this->Auth->allow();
     }
+    public function mercedes(){
+        echo 'es una prueba de git';
+    }
     public function index() {
         $usuarios = $this->User->find('all');
         $this->set(compact('usuarios'));
