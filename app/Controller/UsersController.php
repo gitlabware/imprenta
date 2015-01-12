@@ -6,52 +6,74 @@ class UsersController extends AppController {
 
     public $components = array('Paginator');
     public $layout = 'imprenta';
-    public $uses=array('User');
+    public $uses = array('User');
 
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow();
     }
-    public function mercedes(){
-        echo 'es una prueba de git';
-    }
+
     public function index() {
         $usuarios = $this->User->find('all');
         $this->set(compact('usuarios'));
     }
 
-    public function usuario($idusuario=null) {
+    public function usuario($idusuario = null) {
         $this->layout = 'ajax';
-        $this->User->id=$idusuario;
+        $this->User->id = $idusuario;
         //debug($idusuario);exit;
-        $this->request->data=$this->User->read();
+        $this->request->data = $this->User->read();
     }
 
     public function guardarusuario() {
         //debug($this->request->data); exit;
         $valida = $this->validar('User');
-        if(empty($valida)){
+        if (empty($valida)) {
             $this->User->create();
             $this->User->save($this->request->data['User']);
             $this->Session->setFlash('Se registro correctamente');
-        }else{
+        } else {
             $this->Session->setFlash($valida);
         }
-        $this->redirect(array('action'=>'index'));
+        $this->redirect(array('action' => 'index'));
     }
 
     public function delete($id = null) {
         $this->User->id = $id;
         if (!$this->User->exists()) {
-            throw new NotFoundException(__('Invalid user'));
+            //throw new NotFoundException(__('Invalid user'));
+            $this->Session->setFlash('No existe el usuario.');
         }
-        $this->request->allowMethod('post', 'delete');
+        //$this->request->allowMethod('post', 'delete');
         if ($this->User->delete()) {
-            $this->Session->setFlash(__('The user has been deleted.'));
+            $this->Session->setFlash(__('se elimino correctamente el usuario.'));
         } else {
-            $this->Session->setFlash(__('The user could not be deleted. Please, try again.'));
+            $this->Session->setFlash(__('no se pudo eliminar el usuario.'));
         }
-        return $this->redirect(array('action' => 'index'));
+        $this->redirect(array('action' => 'index'));
+    }
+
+    public function login() {
+        $this->layout='login';
+        if($this->request->is('post')){
+            //debug($this->request->is);exit;
+            if($this->Auth->login()){
+                $role=$this->Session->read('Auth.User.role');
+                switch($role){
+                    case 'Administrador':
+                        $this->redirect(array('controller'=>'Users','action'=>'index'));
+                    default:
+                        break;
+                }
+            }
+            else{
+                $this->Session->setFlash('Usuario o password incorrectos intente de nuevo.');
+            }
+        }
+    }
+    public function salir(){
+        $this->redirect($this->Auth->logout());
+        $this->redirect(array('action'=>'login'));
     }
 
     public function imagenes() {
