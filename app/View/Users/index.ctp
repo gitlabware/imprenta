@@ -19,7 +19,7 @@
                     <td><?php echo $us['User']['nombre'];?></td>
                     <td><?php echo $us['User']['username'];?></td>
                     <td><?php echo $us['User']['role'];?></td>
-                    <td><a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('action'=>'usuario'))?>');">Editar</a></td>
+                    <td><a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('action'=>'usuario',$us['User']['id']))?>');">Editar</a></td>
                 </tr>
                 <?php endforeach;?>
             </tbody>

@@ -2,21 +2,39 @@
 
 App::uses('AppController', 'Controller');
 
-
 class UsersController extends AppController {
 
-   
     public $components = array('Paginator');
     public $layout = 'imprenta';
+    public $uses=array('User');
 
-   
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow();
+    }
     public function index() {
         $usuarios = $this->User->find('all');
         $this->set(compact('usuarios'));
     }
 
-    public function usuario(){
-        $this->layout='ajax';
+    public function usuario($idusuario=null) {
+        $this->layout = 'ajax';
+        $this->User->id=$idusuario;
+        //debug($idusuario);exit;
+        $this->request->data=$this->User->read();
+    }
+
+    public function guardarusuario() {
+        //debug($this->request->data); exit;
+        $valida = $this->validar('User');
+        if(empty($valida)){
+            $this->User->create();
+            $this->User->save($this->request->data['User']);
+            $this->Session->setFlash('Se registro correctamente');
+        }else{
+            $this->Session->setFlash($valida);
+        }
+        $this->redirect(array('action'=>'index'));
     }
 
     public function delete($id = null) {
