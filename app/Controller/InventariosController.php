@@ -5,6 +5,11 @@ App::uses('AppController', 'Controller');
 class InventariosController extends AppController {
     public $layout = 'imprenta';
     public $uses = array('Inventario','Insumo');
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow();
+    }
+
     public function index()
     {
         $sql1 = "SELECT * FROM inventarios WHERE 1 ORDER BY id DESC";
