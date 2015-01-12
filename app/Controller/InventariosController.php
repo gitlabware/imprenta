@@ -5,11 +5,6 @@ App::uses('AppController', 'Controller');
 class InventariosController extends AppController {
     public $layout = 'imprenta';
     public $uses = array('Inventario','Insumo');
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow();
-    }
-
     public function index()
     {
         $sql1 = "SELECT * FROM inventarios WHERE 1 ORDER BY id DESC";
@@ -37,7 +32,12 @@ class InventariosController extends AppController {
     public function guarda_inventario()
     {
         $insumo = $this->Insumo->find('first',array('recursive' => -1,'conditions' => array('Insumo.id' => $this->request->data['Inventario']['insumo_id'])));
-        
+        if(!empty($insumo))
+        {
+            $cantidad_total = $insumo['Insumo']['cantidad'] *  $this->request->data['Inventario']['cantidad'];
+            $this->request->data['Inventario']['cantidad_total'] = $cantidad_total;
+            $this->request->data['Inventario']['precio_total'] ;
+        }
         $valida = $this->validar('Insumo');
         if(empty($valida))
         {
