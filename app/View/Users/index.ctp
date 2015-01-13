@@ -26,8 +26,8 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('action'=>'usuario'))?>');" class="btn btn-primary"><i class="entypo-plus"></i>Nuevo Usuario</a>
-    </div>
+      <!--  <a href="javascript:" onclick="cargarmodal('<?php //echo $this->Html->url(array('action'=>'usuario'))?>');" class="btn btn-primary"><i class="entypo-plus"></i>Nuevo Usuario</a>
+    --></div>
 </div>
 
 <script type="text/javascript">

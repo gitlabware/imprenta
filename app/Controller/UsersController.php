@@ -31,7 +31,7 @@ class UsersController extends AppController {
         if (empty($valida)) {
             $this->User->create();
             $this->User->save($this->request->data['User']);
-            $this->Session->setFlash('Se registro correctamente');
+            $this->Session->setFlash('Se registro correctamente','msgbueno');
         } else {
             $this->Session->setFlash($valida);
         }
@@ -46,9 +46,9 @@ class UsersController extends AppController {
         }
         //$this->request->allowMethod('post', 'delete');
         if ($this->User->delete()) {
-            $this->Session->setFlash(__('se elimino correctamente el usuario.'));
+            $this->Session->setFlash(__('se elimino correctamente el usuario.','msgbueno'));
         } else {
-            $this->Session->setFlash(__('no se pudo eliminar el usuario.'));
+            $this->Session->setFlash(__('no se pudo eliminar el usuario.','msgerror'));
         }
         $this->redirect(array('action' => 'index'));
     }
@@ -67,7 +67,7 @@ class UsersController extends AppController {
                 }
             }
             else{
-                $this->Session->setFlash('Usuario o password incorrectos intente de nuevo.');
+                $this->Session->setFlash('Usuario o password incorrectos intente de nuevo.','msgerror');
             }
         }
     }
