@@ -5,10 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Neon Admin Panel" />
-        <meta name="author" content="" />
+        <meta name="description" content="Imprenta" />
+        <meta name="Cristiam Herrera Daza" content="" />
 
-        <title>Neon | Blank Page</title>
+        <title>
+          Praver - 
+          <?php echo $this->fetch('title'); ?>
+        </title>
 
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>css/font-icons/entypo/css/entypo.css">
