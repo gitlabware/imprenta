@@ -9,8 +9,8 @@
         <meta name="Cristiam Herrera Daza" content="" />
 
         <title>
-          Praver - 
-          <?php echo $this->fetch('title'); ?>
+            Praver - 
+            <?php echo $this->fetch('title'); ?>
         </title>
 
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
@@ -85,10 +85,9 @@
                                 <i class="entypo-pencil"></i>
                                 Informacion
                             </a>
-                            <a >
-                                <?php echo $this->Html->link('<i class="entypo-lock"></i>Log Off', array('Controller' => 'Users', 'action' => 'salir'), array('escape' => false)); ?> 
+                            <a href="<?php echo $this->Html->url(array('controller' => 'Users', 'action' => 'salir')); ?>">
+                                <i class="entypo-lock"></i>Log Off                                
                             </a>
-
                             <span class="close-sui-popup">&times;</span><!-- this is mandatory -->				</div>
                     </div>
                     <ul id="main-menu" class="main-menu">
@@ -102,11 +101,11 @@
                             <ul>
                                 <li>
                                     <a>
-                                        <?php echo $this->Html->link('Listado de usuarios', array('Controller'=>'Users','action'=>'index'));?>
+                                        <?php echo $this->Html->link('Listado de usuarios', array('Controller' => 'Users', 'action' => 'index')); ?>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('action'=>'usuario'))?>');">Nuevo Usuario</a>
+                                    <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('action' => 'usuario')) ?>');">Nuevo Usuario</a>
                                 </li>
                                 <li>
                             </ul>
@@ -214,24 +213,24 @@
             </div>
             <!-- Modal 6 (Long Modal)-->
             <script>
-                function cargarmodal(urll)
-                {
+              function cargarmodal(urll)
+              {
 
-                    jQuery("#div_barra_cargando").show();
-                    jQuery('#modalimprenta').modal('show', {backdrop: 'static'});
-                    jQuery("#divmodalimprenta").show();
-                    jQuery("#divmodalimprenta").load(urll, function (responseText, textStatus, req) {
-                        if (textStatus == "error")
-                        {
-                            jQuery("#divmodalimprenta").hide();
-                            alert("error!!!");
-                        }
-                        else {
-                            jQuery("#div_barra_cargando").hide(800);
-                        }
-                    });
+                  jQuery("#div_barra_cargando").show();
+                  jQuery('#modalimprenta').modal('show', {backdrop: 'static'});
+                  jQuery("#divmodalimprenta").show();
+                  jQuery("#divmodalimprenta").load(urll, function (responseText, textStatus, req) {
+                      if (textStatus == "error")
+                      {
+                          jQuery("#divmodalimprenta").hide();
+                          alert("error!!!");
+                      }
+                      else {
+                          jQuery("#div_barra_cargando").hide(800);
+                      }
+                  });
 
-                }
+              }
             </script>
             <div class="modal fade" id="modalimprenta">
                 <div class="modal-dialog">
