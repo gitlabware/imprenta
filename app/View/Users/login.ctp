@@ -40,18 +40,18 @@
 				</div>
 				
 				<!-- Implemented in v1.1.4 -->
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<em>- or -</em>
-				</div>
+				</div>-->
 				
-				<div class="form-group">
+				<!--<div class="form-group">
 				
 					<button type="button" class="btn btn-default btn-lg btn-block btn-icon icon-left facebook-button">
 						Login with Facebook
 						<i class="entypo-facebook"></i>
 					</button>
 					
-				</div>
+				</div>--> 
 				
 				<!-- 
 				
@@ -77,7 +77,7 @@
 			
 			
 			
-			<div class="login-bottom-links">
+			<!--<div class="login-bottom-links">
 				
 				<a href="extra-forgot-password.html" class="link">Forgot your password?</a>
 				
@@ -85,7 +85,7 @@
 				
 				<a href="#">ToS</a>  - <a href="#">Privacy Policy</a>
 				
-			</div>
+			</div>-->
 			
 		</div>
 		
