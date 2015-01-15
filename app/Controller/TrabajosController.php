@@ -34,9 +34,10 @@ class TrabajosController extends AppController
     public function vista_trabajo($idTrabajo = NULL)
     {
         $trabajo = $this->Trabajo->findByid($idTrabajo);
-        $imagenes = $this->Imagene->findBytrabajo_id($idTrabajo);
-        debug($trabajo);
-        debug($imagenes);exit;
+        $imagenes = $this->Imagene->findAllBytrabajo_id($idTrabajo,NULL,NULL,NULL,NULL,-1);
+        $this->set(compact('imagenes','trabajo'));
+        //debug($trabajo);exit;
+        //debug($imagenes);exit;
     }
     
     public function carga_adjunto($idTrabajo = null) {
@@ -73,5 +74,11 @@ class TrabajosController extends AppController
             return false;
         }
     }
+    public function genera_trabajo($idTrabajo = null)
+    {
+        
+        debug($idTrabajo);exit;
+    }
+    
     
 }

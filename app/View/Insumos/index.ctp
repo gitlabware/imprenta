@@ -10,7 +10,8 @@
                     <th>Descripcion</th>
                     <th>Tipo</th>
                     <th>Precio</th>
-                    <th>Cantidad</th>
+                    <th>Cant. X Paquete</th>
+                    <th>Cant. Total</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -24,7 +25,8 @@
                     <td><?php echo $in['Insumo']['precio']?></td>
                     <td><?php echo $in['Insumo']['cantidad']?></td>
                     <td><a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('action'=>'insumo', $in['Insumo']['id']));?>');" class="btn btn-default btn-sm btn-icon icon-left"><i class="entypo-pencil"></i>Editar</a>
-                        <?php echo $this->Html->link('<i class="entypo-cancel"></i>Eliminar',array('action'=>'delete', $in['Insumo']['id']),array('class'=>'btn btn-danger btn-sm btn-icon icon-left','escape'=>false,'confirm'=>'Esta seguro de eliminar el insumo '.$in['Insumo']['id']));?>
+                        <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('action'=>'adiciona', $in['Insumo']['id']));?>');" class="btn btn-success btn-sm btn-icon icon-left"><i class="entypo-plus"></i>Adicionar</a>
+                        <?php echo $this->Html->link('<i class="entypo-cancel"></i>Eliminar',array('action'=>'delete', $in['Insumo']['id']),array('class'=>'btn btn-danger btn-sm btn-icon icon-left','escape'=>false,'confirm'=>'Esta seguro de eliminar el producto '.$in['Insumo']['id']));?>
                     </td>
                 </tr>
                 <?php endforeach;?>
@@ -43,7 +45,7 @@
 
     jQuery(document).ready(function ($)
     {
-        tableContainer = $("#tablausuarios");
+        tableContainer = $("#tablainsumos");
 
         tableContainer.dataTable({
             "sPaginationType": "bootstrap",

@@ -2,7 +2,7 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h4 class="modal-title">formulario de insumos</h4>
 </div>
-<?php echo $this->Form->create('Inventario',array('action'=>'adiciona'));?>
+<?php echo $this->Form->create('Insumo',array('action'=>'guardarinsumo'));?>
 <div class="modal-body">
     <div class="row">
         <div class="col-md-12">
@@ -37,7 +37,7 @@
 
             <div class="form-group">
                 <label for="field-5" class="control-label">Precio</label>
-                <?php echo $this->Form->text('precio', array('class' => 'form-control', 'placeholder' => 'precio', 'required','value'=>0.00,'type'=>'number','min'=>0)); ?>
+                <?php echo $this->Form->text('precio', array('class' => 'form-control', 'placeholder' => 'precio', 'required','type'=>'number','min'=>0)); ?>
             </div>	
 
         </div>
@@ -46,7 +46,7 @@
 
             <div class="form-group">
                 <label for="field-6" class="control-label">Cantidad</label>
-                <?php echo $this->Form->text('cantidad', array('class' => 'form-control','placeholder'=>'registre la cantidad','value'=>1, 'required', 'type'=>'number','min'=>1)); ?>
+                <?php echo $this->Form->text('cantidad', array('class' => 'form-control','placeholder'=>'registre la cantidad','required', 'type'=>'number','min'=>1)); ?>
             </div>	
 
         </div>

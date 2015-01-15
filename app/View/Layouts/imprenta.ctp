@@ -756,7 +756,9 @@
             </div>
         </div>
 
-
+<link rel="stylesheet" href="<?php echo $this->webroot; ?>js/jcrop/jquery.Jcrop.min.css">
+	<link rel="stylesheet" href="<?php echo $this->webroot; ?>js/dropzone/dropzone.css">
+        
         <!-- Imported styles on this page -->
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/datatables/responsive/css/datatables.responsive.css">
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/select2/select2-bootstrap.css">

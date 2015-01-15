@@ -12,33 +12,72 @@ class InsumosController extends AppController{
     
     public function insumo($idinsumo = null){
         $this->layout='ajax';
+        $this->Insumo->id=$idinsumo;
+        //debug($idinsumo); die;
+        //$this->requets->data = $this->Insumo->read();
+        $this->request->data = $this->Insumo->read();
     }
     
-    public function adiciona(){
-      $estado = 'ingreso';
-      $insumoId = 2;
-      $cantidad = 10;
-      $salida = 2;
-      $ultimoRegistro = $this->Inventario->find('first', array(
-        'conditions'=>array('Inventario.id'=>$insumoId),
-        'order'=>array('Inventario.id DESC')
-      ));
-      debug($ultimoRegistro);     
-      $totalAnterior = $ultimoRegistro['Inventario']['cantidad_total'];
-      debug($totalAnterior);
-      
-      $this->request->data['Inventario']['insumo_id']=$insumoId;
-      $this->request->data['Inventario']['cantidad']=$cantidad;
-      $this->request->data['Inventario']['tipo']=$estado;
-      $this->request->data['Inventario']['cantidad_total']=$totalAnterior+$cantidad;
-      $this->Inventario->create();       
-      if($this->Inventario->save($this->request->data['Inventario'])){
-        echo 'Guardo';        
-      }else{
-        echo 'No pudo guardar';
-      }
-      //$totalPrueba = $totalAnterior+$cantidad;
-      //debug($totalPrueba);
+    public function guardarinsumo() {
+        //debug($this->request->data); exit;
+        $valida = $this->validar('Insumo');
+        if (empty($valida)) {
+            $this->Insumo->create();
+            $this->Insumo->save($this->request->data['Insumo']);
+            $this->Session->setFlash('Se registro correctamente','msgbueno');
+        } else {
+            $this->Session->setFlash($valida);
+        }
+        $this->redirect(array('action' => 'index'));
+    }
+    
+     public function delete($id = null) {
+        $this->Insumo->id = $id;
+        if (!$this->Insumo->exists()) {
+            //throw new NotFoundException(__('Invalid user'));
+            $this->Session->setFlash('No existe el usuario.');
+        }
+        //$this->request->allowMethod('post', 'delete');
+        if ($this->Insumo->delete()) {
+            $this->Session->setFlash('se elimino correctamente el insumo','msgbueno');
+        } else {
+            $this->Session->setFlash('no se pudo eliminar el usuario.','msgerror');
+        }
+        $this->redirect(array('action' => 'index'));
+    }
+
+    
+    public function adiciona($idinsumo=null){
+      $this->layout='ajax';
+      $insumo=$this->Insumo->find('first',array('conditions'=>array('Insumo.id'=>$idinsumo)));
+      $this->set(compact('insumo'));
+    }
+    
+    public function registraingreso (){
+       
+        $ultimoregistro=$this->Inventario->find('first',array('recursive'=>-1,'order'=>'Inventario.id DESC','conditions'=>array('Inventario.insumo_id'=>$this->request->data['Inventario']['insumo_id'])));
+         
+        $this->request->data['Inventario']['cantidad_total']=$ultimoregistro['Inventario']['cantidad_total']+$this->request->data['Inventario']['cantidad'];
+        $this->request->data['Inventario']['precio_total']=$this->request->data['Inventario']['precio']*$this->request->data['Inventario']['cantidad'];
+        $valida = $this->validar('Inventario');
+        if (empty($valida)) {
+            $this->Inventario->create();
+            $this->Inventario->save($this->request->data['Inventario']);
+            $this->Session->setFlash('Se registro correctamente','msgbueno');
+        } else {
+            $this->Session->setFlash($valida);
+        }
+        $this->redirect(array('action' => 'index'));
+    }
+    public function gettotalinsumo ($insumoid){
+        $ultimoregistro=$this->Inventario->find('first',array('recursive'=>-1,'order'=>'Inventario.id DESC','conditions'=>array('Inventario.insumo_id'=>$insumoid)));
+         if(empty($ultimoregistro))
+         {
+             return 0;
+         }  else {
+             return $ultimoregistro['Inventario']['cantidad_total'];
+         }
+        debug($ultimoregistro); exit;
     }
 }
 
