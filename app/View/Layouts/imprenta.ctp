@@ -713,7 +713,6 @@
             <script>
                 function cargarmodal(urll)
                 {
-
                     jQuery("#div_barra_cargando").show();
                     jQuery('#modalimprenta').modal('show', {backdrop: 'static'});
                     jQuery("#divmodalimprenta").show();
@@ -755,8 +754,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
 
 
@@ -775,6 +772,7 @@
         <script src="<?php echo $this->webroot; ?>js/jquery.dataTables.min.js"></script>
         <script src="<?php echo $this->webroot; ?>js/datatables/TableTools.min.js"></script>
 
+        
 
         <!-- Imported scripts on this page -->
         <script src="<?php echo $this->webroot; ?>js/dataTables.bootstrap.js"></script>
@@ -784,7 +782,7 @@
         <script src="<?php echo $this->webroot; ?>js/select2/select2.min.js"></script>
         <script src="<?php echo $this->webroot; ?>js/neon-chat.js"></script>
 
-
+        <?php echo $this->fetch('scriptadd');?>
         <!-- JavaScripts initializations and stuff -->
         <script src="<?php echo $this->webroot; ?>js/neon-custom.js"></script>
 
