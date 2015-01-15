@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <h2>Listado de Usuarios</h2>
         <br>
-        <table class="table table-bordered datatable" id="tablausuarios">
+        <table class="table table-bordered datatable" id="tablainsumos">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -20,7 +20,7 @@
                         <td><?php echo $us['User']['username']; ?></td>
                         <td><?php echo $us['User']['role']; ?></td>
                         <td><a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('action' => 'usuario', $us['User']['id'])) ?>');" class="btn btn-default btn-sm btn-icon icon-left"><i class="entypo-pencil"></i>Editar</a>
-                                <?php echo $this->Html->link('<i class="entypo-cancel"></i>Eliminar',array('action'=>'delete', $us['User']['id']),array('class'=>'btn btn-danger btn-sm btn-icon icon-left','escape'=>false,'confirm'=>'Esta seguro de eliminar al usuario '.$us['User']['username']));?>
+                                <?php echo $this->Html->link('<i class="entypo-cancel"></i>Eliminar',array('action'=>'delete', $us['User']['id']),array('class'=>'btn btn-danger btn-sm btn-icon icon-left','escape'=>false,'confirm'=>'Esta seguro de eliminar al usuario '.$us['User']['id']));?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -40,7 +40,7 @@
 
     jQuery(document).ready(function ($)
     {
-        tableContainer = $("#tablausuarios");
+        tableContainer = $("#tablainsumos");
 
         tableContainer.dataTable({
             "sPaginationType": "bootstrap",

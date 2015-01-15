@@ -116,14 +116,11 @@
                             <a href="mailbox.html">
                                 <i class="entypo-mail"></i>
                                 <span class="title">Insumos</span>
-                                <span class="badge badge-secondary">8</span>
+                               <!-- <span class="badge badge-secondary">8</span>-->
                             </a>
                             <ul>
                                 <li>
-                                    <a href="mailbox.html">
-                                        <i class="entypo-inbox"></i>
-                                        <span class="title">Inbox</span>
-                                    </a>
+                                    <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('action'=>'insumo'))?>');">Nuevo</a>
                                 </li>
                                 <li>
                                     <a href="mailbox-compose.html">
