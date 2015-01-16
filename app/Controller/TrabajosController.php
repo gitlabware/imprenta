@@ -80,5 +80,31 @@ class TrabajosController extends AppController
         debug($idTrabajo);exit;
     }
     
+    public function comboclientes1($campoform = null, $div = null) {
+        $this->layout = 'ajax';
+        //debug($campoform);exit;
+        $this->set(compact('campoform', 'div'));
+    }
+
+    public function comboclientes2($campoform = null, $div = null) {
+        $this->layout = 'ajax';
+        //debug($this->request->data);exit;
+        if (!empty($this->request->data['Mascota']['nombre_completo'])) {
+            $listamascotas = $this->Mascota->find('all', array('recursive' => -1,
+                'conditions' =>
+                array('Mascota.nombre_completo LIKE' => '%' . $this->request->data['Mascota']['nombre_completo'] . "%"),
+                'limit' => 8,
+                'order' => 'Mascota.nombre_completo ASC'
+            ));
+        }
+        //debug($listamascotas);exit;
+        $this->set(compact('listamascotas', 'div', 'campoform'));
+    }
+
+    public function comboclientes3($campoform = null, $div = null, $idMascota = null) {
+        $this->layout = 'ajax';
+        $smascota = $this->Mascota->findByid($idMascota, null, null, -1);
+        $this->set(compact('campoform', 'smascota', 'div'));
+    }
     
 }

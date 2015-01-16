@@ -10,6 +10,7 @@
             <div class="form-group">
                 <label for="field-1" class="control-label">Cantidad</label>
                 <?php echo $this->Form->hidden('Inventario.precio',array('value'=>$insumo['Insumo']['precio']))?>
+                <?php echo $this->Form->hidden('Inventario.cantidadu',array('value'=>$insumo['Insumo']['cantidad']))?>
                 <?php echo $this->Form->hidden('Inventario.insumo_id',array('value'=>$insumo['Insumo']['id']))?>
                 <?php echo $this->Form->hidden('Inventario.tipo',array('value'=>'Ingreso'))?>
                 <?php echo $this->Form->text('Inventario.cantidad', array('class' => 'form-control', 'placeholder' => 'Ingrese la cantidad', 'type'=>'number','min'=>1,'required')); ?>

@@ -54,10 +54,12 @@ class InsumosController extends AppController{
     }
     
     public function registraingreso (){
-       
+        //debug($this->request->data);exit;
         $ultimoregistro=$this->Inventario->find('first',array('recursive'=>-1,'order'=>'Inventario.id DESC','conditions'=>array('Inventario.insumo_id'=>$this->request->data['Inventario']['insumo_id'])));
-         
-        $this->request->data['Inventario']['cantidad_total']=$ultimoregistro['Inventario']['cantidad_total']+$this->request->data['Inventario']['cantidad'];
+        if(isset($ultimoregistro['Inventario']['cantidad_total']))
+        {
+            $this->request->data['Inventario']['cantidad_total']=$ultimoregistro['Inventario']['cantidad_total']+($this->request->data['Inventario']['cantidad']*$this->request->data['Inventario']['cantidadu']);
+        }
         $this->request->data['Inventario']['precio_total']=$this->request->data['Inventario']['precio']*$this->request->data['Inventario']['cantidad'];
         $valida = $this->validar('Inventario');
         if (empty($valida)) {

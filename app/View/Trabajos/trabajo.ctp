@@ -21,8 +21,6 @@
                         <?php echo $this->Form->text('descripcion', array('class' => 'form-control', 'required', 'placeholder' => 'Ingrese alguna descripcion del trabajo')) ?>
                     </div>
                 </div>
-
-
                 <div class="form-group">
                     <div class="col-sm-4">
                         <a class="btn btn-primary btn-block" onclick="add_imagen();"><i class="entypo-plus"></i>Add Imagen</a>
