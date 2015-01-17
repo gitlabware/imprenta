@@ -89,22 +89,22 @@ class TrabajosController extends AppController
     public function comboclientes2($campoform = null, $div = null) {
         $this->layout = 'ajax';
         //debug($this->request->data);exit;
-        if (!empty($this->request->data['Cliente']['nombre'])) {
-            $listaclientes = $this->Cliente->find('all', array('recursive' => -1,
+        if (!empty($this->request->data['Mascota']['nombre_completo'])) {
+            $listamascotas = $this->Mascota->find('all', array('recursive' => -1,
                 'conditions' =>
-                array('Cliente.nombre LIKE' => '%' . $this->request->data['Cliente']['nombre'] . "%"),
+                array('Mascota.nombre_completo LIKE' => '%' . $this->request->data['Mascota']['nombre_completo'] . "%"),
                 'limit' => 8,
-                'order' => 'Cliente.nombre ASC'
+                'order' => 'Mascota.nombre_completo ASC'
             ));
         }
-        
-        $this->set(compact('listaclientes', 'div', 'campoform'));
+        //debug($listamascotas);exit;
+        $this->set(compact('listamascotas', 'div', 'campoform'));
     }
 
-    public function comboclientes3($campoform = null, $div = null, $idCliente = null) {
+    public function comboclientes3($campoform = null, $div = null, $idMascota = null) {
         $this->layout = 'ajax';
-        $scliente = $this->Cliente->findByid($idCliente, null, null, -1);
-        $this->set(compact('campoform', 'scliente', 'div'));
+        $smascota = $this->Mascota->findByid($idMascota, null, null, -1);
+        $this->set(compact('campoform', 'smascota', 'div'));
     }
     
 }
