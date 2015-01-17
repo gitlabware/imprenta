@@ -29,6 +29,7 @@ class InsumosController extends AppController{
             $this->Session->setFlash($valida);
         }
         $this->redirect(array('action' => 'index'));
+        
     }
     
      public function delete($id = null) {
@@ -60,8 +61,12 @@ class InsumosController extends AppController{
         {
             $this->request->data['Inventario']['cantidad_total']=$ultimoregistro['Inventario']['cantidad_total']+($this->request->data['Inventario']['cantidad']*$this->request->data['Inventario']['cantidadu']);
         }
+        else{
+            $this->request->data['Inventario']['cantidad_total'] = $this->request->data['Inventario']['cantidad']*$this->request->data['Inventario']['cantidadu'];
+        }
         $this->request->data['Inventario']['precio_total']=$this->request->data['Inventario']['precio']*$this->request->data['Inventario']['cantidad'];
         $valida = $this->validar('Inventario');
+        
         if (empty($valida)) {
             $this->Inventario->create();
             $this->Inventario->save($this->request->data['Inventario']);
@@ -69,6 +74,7 @@ class InsumosController extends AppController{
         } else {
             $this->Session->setFlash($valida);
         }
+        
         $this->redirect(array('action' => 'index'));
     }
     public function gettotalinsumo ($insumoid){
