@@ -2,7 +2,7 @@
 class TrabajosController extends AppController
 {
     public $layout = 'imprenta';
-    public $uses = array('Trabajo','User','Imagene');
+    public $uses = array('Trabajo','User','Imagene','Cliente');
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow();

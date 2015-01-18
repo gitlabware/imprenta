@@ -1,8 +1,7 @@
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+<?php if(!empty($scliente['Cliente']['id'])):?>
+<button type="button" class="btn btn-primary btn-block" onclick="cargarmodal2('<?php echo $this->Html->url(array('action' => 'comboclientes1',$campoform,$div));?>');"><?php echo $scliente['Cliente']['nombre_completo'];?></button>
+    <?php echo $this->Form->hidden($campoform,array('value' => $scliente['Cliente']['id']));?>
+<?php else:?>
+    <button type="button" class="btn btn-primary btn-block" onclick="cargarmodal2('<?php echo $this->Html->url(array('controller' => 'Trabajos','action' => 'comboclientes1',$campoform,$div));?>');"><?php echo 'SELECCIONE EL CLIENTE';?></button>
+    <?php echo $this->Form->hidden($campoform,array('value' => null));?>
+<?php endif; ?>

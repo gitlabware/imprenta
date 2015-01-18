@@ -100,6 +100,51 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal  para select -->
+            <script>
+                function cargarmodal2(urll)
+                {
+                    jQuery("#div_barra_cargandodos").show();
+                    jQuery('#modalimprentados').modal('show', {backdrop: 'static'});
+                    jQuery("#divmodalimprentados").show();
+                    jQuery("#divmodalimprentados").load(urll, function (responseText, textStatus, req) {
+                        if (textStatus == "error")
+                        {
+                            jQuery("#divmodalimprentados").hide();
+                            alert("error!!!");
+                        }
+                        else {
+                            jQuery("#div_barra_cargandodos").hide(800);
+                        }
+                    });
+                }
+            </script>
+            <div class="modal fade" id="modalimprentados">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div  id="div_barra_cargandodos">
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                            
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="divmodalimprentados" style="display: none;">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
         </div>
 
 <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/jcrop/jquery.Jcrop.min.css">

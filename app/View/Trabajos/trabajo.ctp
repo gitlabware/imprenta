@@ -9,10 +9,29 @@
             </div>
             <div class="panel-body">
                 <?php echo $this->Form->create('Trabajo', array('action' => 'guarda_trabajo', 'class' => 'form-horizontal form-groups-bordered', 'enctype' => 'multipart/form-data'), array('type' => 'file')); ?>
-                <div class="form-group">
+                <div class="form-group" id="idseleccli">
                     <label class="col-sm-3 control-label">Cliente</label>
                     <div class="col-sm-5">
-                        <?php echo $this->Form->select('cliente_id', $clientes, array('class' => 'form-control')) ?>
+                        <div id="divselectcliente">
+                            <button type="button" class="btn btn-primary btn-block" onclick="cargarmodal2('<?php echo $this->Html->url(array('action' => 'comboclientes1','Trabajo.cliente_id','divselectcliente'));?>');">SELECCIONE AL CLIENTE</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-success"  onclick="jQuery('#idseleccli').toggle(400);jQuery('#idnuevocli').toggle(400);jQuery('#idclinom').attr('required',true);jQuery('#idclinit').attr('required',true);">NUEVO</button>
+                        
+                    </div>
+                </div>
+                <div class="form-group" style="display: none;" id="idnuevocli">
+                    <label class="col-sm-2 control-label">Nombre</label>
+                    <div class="col-sm-4">
+                        <?php echo $this->Form->text('Cliente.nombre',array('class' => 'form-control','id' => 'idclinom','placeholder' => 'Ingrese nombre del cliente'));?>
+                    </div>
+                    <label class="col-sm-2 control-label">NIT/CI</label>
+                    <div class="col-sm-2">
+                        <?php echo $this->Form->text('Cliente.nit',array('class' => 'form-control','id' => 'idclinit','placeholder' => 'Ingrese nit o ci del cliente'));?>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-info">SELECCIONAR</button>
                     </div>
                 </div>
                 <div class="form-group" id="form-imagen-0">
