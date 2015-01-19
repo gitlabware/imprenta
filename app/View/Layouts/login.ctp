@@ -41,7 +41,7 @@
         </script>
 
         <div class="login-container">
-
+            
             <div class="login-header login-caret">
 
                 <div class="login-content">
@@ -60,12 +60,19 @@
                 </div>
 
             </div>
-
+            
             <div class="login-progressbar">
                 <div></div>
             </div>
 
-            <?php echo $this->fetch('content'); ?>
+            <div class="login-form">
+                
+                <div class="login-content">
+                    <?php echo $this->Session->flash();?>
+                    <?php echo $this->fetch('content'); ?>
+                </div>
+
+            </div>
 
         </div>
 

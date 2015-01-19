@@ -67,7 +67,7 @@ class UsersController extends AppController {
                 }
             }
             else{
-                $this->Session->setFlash('Usuario o password incorrectos intente de nuevo.','msgerror');
+                $this->Session->setFlash('Usuario o password incorrectos intente de nuevo.','msgerrorlogin');
             }
         }
     }

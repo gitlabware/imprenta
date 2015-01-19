@@ -38,13 +38,68 @@
 
             <div class="sidebar-menu">
 
-                <?php echo $this->element('sidebar/administrador')?>
+                <?php echo $this->element('sidebar/administrador') ?>
 
             </div>
 
             <div class="main-content">
+
+
+
+                <div class="row">
+
+                    <!-- Profile Info and Notifications -->
+                    <div class="col-md-6 col-sm-8 clearfix">
+
+                        <ul class="user-info pull-left pull-none-xsm">
+
+                            <!-- Profile Info -->
+                            <li class="profile-info dropdown"><!-- add class "pull-right" if you want to place this from right -->
+
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="<?php echo $this->webroot;?>images/user-icon-1106042328.png" alt="" class="img-circle" width="44" />
+                                    <?php echo $this->Session->read('Auth.User.nombre');?>
+                                </a>
+                                <ul class="dropdown-menu">
+
+                                    <!-- Reverse Caret -->
+                                    <li class="caret"></li>
+
+                                    <!-- Profile sub-links -->
+                                    <li>
+                                        <a href="extra-timeline.html">
+                                            <i class="entypo-user"></i>
+                                            Edit Profile
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <!-- Raw Links -->
+                    <div class="col-md-6 col-sm-4 clearfix hidden-xs">
+                        <ul class="list-inline links-list pull-right">
+                            <li class="sep"></li>
+                            <li>
+                                <a href="<?php echo $this->Html->url(array('controller' => 'Users','action' => 'salir'));?>">
+                                    Salir <i class="entypo-logout right"></i>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                
                 <?php echo $this->Session->flash(); ?>
                 <?php echo $this->fetch('content'); ?>
+                
                 <br />
 
                 <!-- lets do some work here... -->
@@ -85,7 +140,7 @@
 
                                     <div class="progress progress-striped active">
                                         <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                                            
+
                                         </div>
                                     </div>
 
@@ -129,7 +184,7 @@
 
                                     <div class="progress progress-striped active">
                                         <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                                            
+
                                         </div>
                                     </div>
 
@@ -144,12 +199,12 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
-<link rel="stylesheet" href="<?php echo $this->webroot; ?>js/jcrop/jquery.Jcrop.min.css">
-	<link rel="stylesheet" href="<?php echo $this->webroot; ?>js/dropzone/dropzone.css">
-        
+        <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/jcrop/jquery.Jcrop.min.css">
+        <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/dropzone/dropzone.css">
+
         <!-- Imported styles on this page -->
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/datatables/responsive/css/datatables.responsive.css">
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/select2/select2-bootstrap.css">
@@ -165,7 +220,7 @@
         <script src="<?php echo $this->webroot; ?>js/jquery.dataTables.min.js"></script>
         <script src="<?php echo $this->webroot; ?>js/datatables/TableTools.min.js"></script>
 
-        
+
 
         <!-- Imported scripts on this page -->
         <script src="<?php echo $this->webroot; ?>js/dataTables.bootstrap.js"></script>
@@ -175,7 +230,7 @@
         <script src="<?php echo $this->webroot; ?>js/select2/select2.min.js"></script>
         <script src="<?php echo $this->webroot; ?>js/neon-chat.js"></script>
 
-        <?php echo $this->fetch('scriptadd');?>
+        <?php echo $this->fetch('scriptadd'); ?>
         <!-- JavaScripts initializations and stuff -->
         <script src="<?php echo $this->webroot; ?>js/neon-custom.js"></script>
 
