@@ -107,5 +107,9 @@ class UsersController extends AppController {
         }
         echo "#" . $r . $g . $b;
     }
-
+    public function login2()
+    {
+        $this->layout = 'ajax';
+        exit;
+    }
 }
