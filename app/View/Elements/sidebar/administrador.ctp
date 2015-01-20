@@ -2,7 +2,7 @@
     <header class="logo-env">
         <!-- logo -->
         <div class="logo">
-            <a href="index.html">
+            <a href="<?php echo $this->Html->url(array('controller' => 'Users','action' => 'index'));?>">
                 <img src="<?php echo $this->webroot; ?>images/logo@2x.png" width="120" alt="" />
             </a>
         </div>

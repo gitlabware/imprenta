@@ -67,7 +67,7 @@
 
                                     <!-- Profile sub-links -->
                                     <li>
-                                        <a href="extra-timeline.html">
+                                        <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('controller' => 'Users','action' => 'usuario',$this->Session->read('Auth.User.id')));?>');">
                                             <i class="entypo-user"></i>
                                             Edit Profile
                                         </a>
