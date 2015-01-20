@@ -8,7 +8,7 @@
         <meta name="description" content="Neon Admin Panel" />
         <meta name="author" content="" />
 
-        <title>Neon | Login</title>
+        <title>Praver</title>
 
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>css/font-icons/entypo/css/entypo.css">

@@ -51,6 +51,11 @@ class TrabajosController extends AppController {
       $coloresEnRgb = $this->coloresRgb($rutaImagen);
       $toRgb = $this->hex2rgb($coloresEnRgb);
       $coloresCMYK = $this->rgb2cmyk($toRgb);
+      /*debug($coloresCMYK['c']);
+      debug($coloresCMYK['m']);
+      debug($coloresCMYK['y']);
+      debug($coloresCMYK['k']);
+      exit();*/ 
       //debug($coloresCMYK);
       $c=round($coloresCMYK['c'],2)*1000;
       $m=round($coloresCMYK['m'],2)*1000;

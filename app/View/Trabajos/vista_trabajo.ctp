@@ -121,7 +121,7 @@
 
                           <div class="tile-footer">
                               <h4>
-                                  <span class="pct-counter">0</span>% increase
+                                  <span class="pct-counter">0</span>% uso
                               </h4>
 
                               <span>so far in our blog and our website</span>
