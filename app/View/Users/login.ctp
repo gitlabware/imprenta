@@ -1,6 +1,4 @@
 
-
-
 <?php echo $this->Form->create('User', array('class' => 'form-horizontal form-bordered form-control-borderless', 'id' => 'form_login')); ?>
 <div class="form-group">
 

@@ -3,14 +3,13 @@
 App::uses('AppController', 'Controller');
 
 class UsersController extends AppController {
-
-    public $components = array('Paginator');
+    public $components = array('RequestHandler');
     public $layout = 'imprenta';
     public $uses = array('User');
 
-    public function beforeFilter() {
+    public function beforeFilter(){
         parent::beforeFilter();
-        $this->Auth->allow();
+        $this->Auth->allow('login2');
     }
 
     public function index() {
@@ -107,5 +106,42 @@ class UsersController extends AppController {
         }
         echo "#" . $r . $g . $b;
     }
-
+    public function login2()
+    {
+        $this->layout = 'ajax';
+        //debug($this->request->data);
+        $merror = '';
+        if($this->request->is('post')){
+            //debug($this->request->is);exit;
+            if($this->Auth->login()){
+                $role=$this->Session->read('Auth.User.role');
+                switch($role){
+                    case 'Administrador':
+                        $array['role'] = $role;
+                        //$this->redirect(array('controller'=>'Users','action'=>'index'));
+                    default:
+                        break;
+                }
+            }
+            else{
+                $merror = 'Usuario o password incorrectos intente de nuevo';
+                //$this->Session->setFlash('Usuario o password incorrectos intente de nuevo.','msgerrorlogin');
+            }
+        }
+        $array['error'] = $merror;
+        $this->respond($array, true);
+    }
+    function respond($message = null, $json = false)
+    {
+        if ($message != null)
+        {
+            if ($json == true)
+            {
+                $this->RequestHandler->setContent('json', 'application/json');
+                $message = json_encode($message);
+            }
+            $this->set('message', $message);
+        }
+        $this->render('message');
+    }
 }
