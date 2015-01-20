@@ -68,7 +68,10 @@
             <div class="login-form">
 
                 <div class="login-content">
-                    <?php echo $this->Session->flash(); ?>
+                    <div class="form-login-error">
+                        <h3>Login Invalido</h3>
+                        <p>Usuario o password incorrectos intente de nuevo</p>
+                    </div>
                     <?php echo $this->fetch('content'); ?>
                 </div>
 
@@ -118,7 +121,7 @@
                         },
                         highlight: function (element) {
                             $(element).closest('.input-group').addClass('validate-has-error');
-                     },
+                        },
                         unhighlight: function (element)
                         {
                             $(element).closest('.input-group').removeClass('validate-has-error');
@@ -139,64 +142,49 @@
                             // We will wait till the transition ends				
                             setTimeout(function ()
                             {
-                                var random_pct = 25 + Math.round(Math.random() * 30);
 
                                 // The form data are subbmitted, we can forward the progress to 70%
-                                neonLogin.setPercentage(40 + random_pct);
+                                neonLogin.setPercentage(100);
 
                                 // Send data to the server
-                                jQuery.ajax({
-                                    url: '<?php echo $this->Html->url(array('controller' => 'Users','action' => 'login2'));?>',
-                                    method: 'POST',
-                                    dataType: 'json',
-                                    data: {
-                                       //username: jQuery("input#username").val(),
-                                        //password: jQuery("input#password").val(),
-                                    },
-                                    error: function ()
-                                    {
-                                        alert("An error occouredhhhh!");
-                                    },
-                                    success: function (response)
-                                    {
-                                        alert("sssss");
-                                        
-                                        // Login status [success|invalid]
-                                        var login_status = response.login_status;
-
-                                        // Form is fully completed, we update the percentage
-                                        neonLogin.setPercentage(100);
-
-
-                                        // We will give some time for the animation to finish, then execute the following procedures	
-                                        setTimeout(function ()
+                                var postData = $('#form_login').serializeArray();
+                                var formURL = '<?php echo $this->Html->url(array('controller' => 'Users', 'action' => 'login2')); ?>';
+                                jQuery.ajax(
                                         {
-                                            // If login is invalid, we store the 
-                                            if (login_status == 'invalid')
+                                            url: formURL,
+                                            type: "POST",
+                                            data: postData,
+                                            /*beforeSend:function (XMLHttpRequest) {
+                                             alert("antes de enviar");
+                                             },
+                                             complete:function (XMLHttpRequest, textStatus) {
+                                             alert('despues de enviar');
+                                             },*/
+                                            success: function (data, textStatus, jqXHR)
                                             {
-                                                $(".login-page").removeClass('logging-in');
-                                                neonLogin.resetProgressBar(true);
-                                            }
-                                            else
-                                            if (login_status == 'success')
-                                            {
-                                                // Redirect to login page
-                                                setTimeout(function ()
-                                                {
-                                                    var redirect_url = baseurl;
-
-                                                    if (response.redirect_url && response.redirect_url.length)
+                                                if (jQuery.parseJSON(data).error != '') {
+                                                    $(".login-page").removeClass('logging-in');
+                                                    neonLogin.resetProgressBar(true);
+                                                } else {
+                                                    //alert('todo bien');
+                                                    setTimeout(function ()
                                                     {
-                                                        redirect_url = response.redirect_url;
-                                                    }
-
-                                                    window.location.href = redirect_url;
-                                                }, 400);
+                                                        var redirect_url = '';
+                                                        if(jQuery.parseJSON(data).role == 'Administrador'){
+                                                            redirect_url = '<?php echo $this->Html->url(array('controller' => 'Users','action' => 'index'));?>';
+                                                        }
+                                                        window.location.href = redirect_url;
+                                                    }, 800);
+                                                }
+                                            },
+                                            error: function (jqXHR, textStatus, errorThrown)
+                                            {
+                                                //if fails   
+                                                alert("error");
                                             }
+                                        });
 
-                                        }, 1000);
-                                    }
-                                });
+
 
 
                             }, 650);
@@ -222,7 +210,7 @@
                             },
                             highlight: function (element) {
                                 $(element).closest('.input-group').addClass('validate-has-error');
-                        },
+                            },
                             unhighlight: function (element)
                             {
                                 $(element).closest('.input-group').removeClass('validate-has-error');
