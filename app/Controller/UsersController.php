@@ -9,7 +9,7 @@ class UsersController extends AppController {
 
     public function beforeFilter(){
         parent::beforeFilter();
-        $this->Auth->allow();
+        $this->Auth->allow('login2');
     }
 
     public function index() {
