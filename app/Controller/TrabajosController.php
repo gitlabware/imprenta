@@ -3,7 +3,7 @@
 class TrabajosController extends AppController {
 
     public $layout = 'imprenta';
-    public $uses = array('Trabajo', 'User', 'Imagene', 'Cliente', 'Insumo');
+    public $uses = array('Trabajo', 'User', 'Imagene', 'Cliente', 'Insumo','Inventario');
 
     public function beforeFilter() {
         parent::beforeFilter();
@@ -17,6 +17,7 @@ class TrabajosController extends AppController {
 
     public function guarda_trabajo() {
         if (!empty($this->request->data)) {
+            $this->request->data['Trabajo']['estado'] = 0;
             if(!empty($this->request->data['Cliente']['nombre']))
             {
                 $this->Cliente->create();
@@ -102,7 +103,18 @@ class TrabajosController extends AppController {
     }
 
     public function genera_trabajo($idTrabajo = null) {
-
+        $this->Trabajo->create();
+        $this->request->data['Trabajo']['id'] = $idTrabajo;
+        $this->request->data['Trabajo']['estado'] = 1;
+        $this->Trabajo->save($this->request->data['Trabajo']);
+        $trabajo = $this->Trabajo->find('first',array('recursive' => -1));
+        $ultimo_insumo = $this->Inventario->find('first',array('order' => 'Inventario.id DESC','recursive' => -1,'conditions' => array('Inventario.insumo_id' => $trabajo['Trabajo']['insumo_id'])));
+        if($ultimo_insumo['Inventario']['cantidad_total'] >= $trabajo['Trabajo']['cantidad'])
+        {
+            $this->Inventario->create();
+            $this->request->data['Inventario'][''];
+            $this->Inventario->save($this->request->data['Inventario']);
+        }
         debug($idTrabajo);
         exit;
     }
