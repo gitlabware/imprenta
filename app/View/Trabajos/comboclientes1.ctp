@@ -15,7 +15,7 @@
         <div class="col-md-8">
 
             <div class="form-group">
-                <?php echo $this->Form->text($campoform, array('class' => 'form-control', 'placeholder' => 'Ingrese el nombre del cliente', 'id' => 'combobuscaclientetext')); ?>
+                <?php echo $this->Form->text('Cliente.nombre', array('class' => 'form-control', 'placeholder' => 'Ingrese el nombre del cliente', 'id' => 'combobuscaclientetext')); ?>
             </div>	
 
         </div>
