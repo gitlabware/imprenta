@@ -140,10 +140,22 @@
         </div>
     <?php endforeach; ?>
 
-
+    <?php 
+    $redisabled = '';
+    $nodisabled = 'disabled';
+    if($trabajo['Trabajo']['estado'] == 1)
+    {
+        $redisabled = 'disabled';
+        $nodisabled = '';
+    }
+    
+    ?>
     <div class="row">
         <div class="col-sm-6">
-            <?php echo $this->Html->link('Realizar Trabajo', array('action' => 'genera_trabajo', $trabajo['Trabajo']['id']), array('class' => 'btn btn-blue btn-block')); ?>
+            <?php echo $this->Html->link('Realizar Trabajo', array('action' => 'genera_trabajo', $trabajo['Trabajo']['id']), array('class' => 'btn btn-blue btn-block',$redisabled)); ?>
+        </div>
+        <div class="col-sm-6">
+            <?php echo $this->Html->link('Ver Nota', array('action' => 'nota_trabajo', $trabajo['Trabajo']['id']), array('class' => 'btn btn-black btn-block',$nodisabled)); ?>
         </div>
     </div>
 </div>
