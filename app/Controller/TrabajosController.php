@@ -223,5 +223,9 @@ class TrabajosController extends AppController {
             'y' => $yellow / 255,
             'k' => $black / 255);
     }
-    
+    public function index()
+    {
+        $trabajos = $this->Trabajo->find('all',array('order' => 'Trabajo.id DESC'));
+        $this->set(compact('trabajos'));
+    }
 }
