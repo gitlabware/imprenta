@@ -3,11 +3,11 @@
 class TrabajosController extends AppController {
 
     public $layout = 'imprenta';
-    public $uses = array('Trabajo', 'User', 'Imagene', 'Cliente', 'Insumo','Inventario');
+    public $uses = array('Trabajo', 'User', 'Imagene', 'Cliente', 'Insumo', 'Inventario');
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow();
+        //$this->Auth->allow();
     }
 
     public function trabajo() {
@@ -18,8 +18,7 @@ class TrabajosController extends AppController {
     public function guarda_trabajo() {
         if (!empty($this->request->data)) {
             $this->request->data['Trabajo']['estado'] = 0;
-            if(!empty($this->request->data['Cliente']['nombre']))
-            {
+            if (!empty($this->request->data['Cliente']['nombre'])) {
                 $this->Cliente->create();
                 $this->Cliente->save($this->request->data['Cliente']);
                 $this->request->data['Trabajo']['cliente_id'] = $this->Cliente->getLastInsertID();
@@ -107,16 +106,33 @@ class TrabajosController extends AppController {
         $this->request->data['Trabajo']['id'] = $idTrabajo;
         $this->request->data['Trabajo']['estado'] = 1;
         $this->Trabajo->save($this->request->data['Trabajo']);
-        $trabajo = $this->Trabajo->find('first',array('recursive' => -1));
-        $ultimo_insumo = $this->Inventario->find('first',array('order' => 'Inventario.id DESC','recursive' => -1,'conditions' => array('Inventario.insumo_id' => $trabajo['Trabajo']['insumo_id'])));
-        if($ultimo_insumo['Inventario']['cantidad_total'] >= $trabajo['Trabajo']['cantidad'])
-        {
-            $this->Inventario->create();
-            $this->request->data['Inventario'][''];
-            $this->Inventario->save($this->request->data['Inventario']);
+        $trabajo = $this->Trabajo->find('first', array('recursive' => -1,'conditions' => array('Trabajo.id' => $idTrabajo)));
+        $ultimo_insumo = $this->Inventario->find('first', array('order' => 'Inventario.id DESC', 'recursive' => -1, 'conditions' => array('Inventario.insumo_id' => $trabajo['Trabajo']['insumo_id'])));
+        if (!empty($ultimo_insumo)) {
+            if ($ultimo_insumo['Inventario']['cantidad_total'] >= $trabajo['Trabajo']['cantidad']) {
+                $this->Inventario->create();
+                $this->request->data['Inventario']['insumo_id'] = $trabajo['Trabajo']['insumo_id'];
+                $this->request->data['Inventario']['cantidad'] = $trabajo['Trabajo']['cantidad'];
+                $this->request->data['Inventario']['tipo'] = 'Usado';
+                $this->request->data['Inventario']['cantidad_total'] = $ultimo_insumo['Inventario']['cantidad_total'] - $trabajo['Trabajo']['cantidad'];
+                $this->Inventario->save($this->request->data['Inventario']);
+                $this->redirect(array('action' => 'nota_trabajo',$idTrabajo));
+            } else {
+                $this->Session->setFlash('Los insumos en almacen no son suficientes', 'msgerror');
+                $this->redirect(array('action' => 'vista_trabajo', $idTrabajo));
+            }
+        } else {
+            $this->Session->setFlash('Los insumos en almacen no son suficientes', 'msgerror');
+            $this->redirect(array('action' => 'vista_trabajo', $idTrabajo));
         }
-        debug($idTrabajo);
-        exit;
+    }
+    
+    public function nota_trabajo($idTrabajo = NULL) {
+        $trabajo = $this->Trabajo->find('first',array('conditions' => array('Trabajo.id' => $idTrabajo),'fields' => array(
+            'Trabajo.id','Trabajo.descripcion','Cliente.nombre','Cliente.nit','Insumo.nombre','Trabajo.cantidad'
+        )));
+        $imagenes = $this->Imagene->find('all',array('conditions' => array('Imagene.trabajo_id' => $idTrabajo)));
+        $this->set(compact('trabajo','imagenes'));
     }
 
     public function comboclientes1($campoform = null, $div = null) {
@@ -207,5 +223,5 @@ class TrabajosController extends AppController {
             'y' => $yellow / 255,
             'k' => $black / 255);
     }
-
+    
 }
