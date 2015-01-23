@@ -46,7 +46,7 @@
 
 
 
-                <div class="row">
+                <div class="row hidden-print">
 
                     <!-- Profile Info and Notifications -->
                     <div class="col-md-6 col-sm-8 clearfix">
@@ -104,7 +104,7 @@
 
                 <!-- lets do some work here... -->
                 <!-- Footer -->
-                <footer class="main">
+                <footer class="main hidden-print">
 
                     &copy; 2014 <strong>Neon</strong> Admin Theme by <a href="http://laborator.co" target="_blank">Laborator</a>
 

@@ -18,7 +18,6 @@
                     </div>
                     <div class="col-sm-2">
                         <button type="button" class="btn btn-success"  onclick="jQuery('#idseleccli').toggle(400);jQuery('#idnuevocli').toggle(400);jQuery('#idclinom').attr('required',true);jQuery('#idclinit').attr('required',true);">NUEVO</button>
-                        
                     </div>
                 </div>
                 <div class="form-group" style="display: none;" id="idnuevocli">
@@ -31,13 +30,25 @@
                         <?php echo $this->Form->text('Cliente.nit',array('class' => 'form-control','id' => 'idclinit','placeholder' => 'Ingrese nit o ci del cliente'));?>
                     </div>
                     <div class="col-md-2">
-                        <button type="button" class="btn btn-info">SELECCIONAR</button>
+                        <button type="button" class="btn btn-info" onclick="jQuery('#idnuevocli').toggle(400);jQuery('#idseleccli').toggle(400);jQuery('#idclinom').attr('required',false);jQuery('#idclinit').attr('required',false);">SELECCIONAR</button>
                     </div>
                 </div>
-                <div class="form-group" id="form-imagen-0">
+                <div class="form-group">
                     <label class="col-sm-3 control-label">Descripcion</label>
                     <div class="col-sm-5">
                         <?php echo $this->Form->text('descripcion', array('class' => 'form-control', 'required', 'placeholder' => 'Ingrese alguna descripcion del trabajo')) ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Cantidad de papel</label>
+                    <div class="col-sm-5">
+                        <?php echo $this->Form->text('cantidad', array('class' => 'form-control', 'required', 'placeholder' => 'Ingrese la cantidad de papel','type' => 'number','min' => 1)) ?>
+                    </div>
+                </div>
+                <div class="form-group" id="form-imagen-0">
+                    <label class="col-sm-3 control-label">Tipo de papel</label>
+                    <div class="col-sm-5">
+                        <?php echo $this->Form->select('insumo_id', $papeles,array('class' => 'form-control', 'required')) ?>
                     </div>
                 </div>
                 <div class="form-group">
@@ -51,7 +62,6 @@
                         <button class="btn btn-success btn-block"><i class="entypo-check"></i>Registrar</button>
                     </div>
                 </div>
-
                 <?php echo $this->Form->end(); ?>
             </div>
         </div>
@@ -70,8 +80,8 @@
         cantimagenes++;
         bloqueimagen =
                 '<div class="form-group" id="form-imagen-' + cantimagenes + '">'
-                + '<label class="col-sm-2 control-label">Image Upload</label>'
-                + ' <div class="col-sm-4">'
+                + '<label class="col-sm-3 control-label">Image Upload</label>'
+                + ' <div class="col-sm-6">'
                 + '     <div class="fileinput fileinput-new" data-provides="fileinput">'
                 + '         <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;" data-trigger="fileinput"><img src="http://placehold.it/200x150" alt="..."></div>'
                 + '         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px"></div>'
@@ -85,21 +95,6 @@
                 + '         </div>'
                 + '     </div>'
                 + ' </div>'
-                + ' <div class="col-sm-6">'
-                + '     <div class="row">'
-                + '         <label class="col-sm-4 control-label">Cantidad</label>'
-                + '         <div class="col-sm-8">'
-                + '             <input type="number" class="form-control" placeholder="Ingrese la cantidad" min="1" required name="data[Imagen][' + cantimagenes + '][cantidad]">'
-                + '         </div>'
-                + '     </div>'
-                + '     <br>'
-                + '     <div class="row">'
-                + '         <label class="col-sm-4 control-label">Cantidad Imagenes</label>'
-                + '         <div class="col-sm-8">'
-                + '             <input type="number" class="form-control" placeholder="Ingrese la cantidad de imagenes" min="1" required name="data[Imagen][' + cantimagenes + '][cantidad_imagenes]">'
-                + '         </div>'
-                + '     </div>'
-                + ' </div>'
                 + '</div>';
 
         cantidad = cantimagenes - 1;
@@ -108,7 +103,7 @@
     }
     function quita_imagen()
     {
-        if (cantimagenes != 0) {
+        if (cantimagenes != 1) {
             jQuery('#form-imagen-' + cantimagenes).remove();
             cantimagenes--;
         }

@@ -4,6 +4,7 @@ App::uses('AppModel', 'Model');
  * Trabajo Model
  *
  * @property Cliente $Cliente
+ * @property Insumo $Insumo
  */
 class Trabajo extends AppModel {
 
@@ -19,6 +20,13 @@ class Trabajo extends AppModel {
 		'Cliente' => array(
 			'className' => 'Cliente',
 			'foreignKey' => 'cliente_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Insumo' => array(
+			'className' => 'Insumo',
+			'foreignKey' => 'insumo_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

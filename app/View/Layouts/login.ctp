@@ -39,7 +39,6 @@
         <script type="text/javascript">
             var baseurl = '';
         </script>
-
         <div class="login-container">
 
             <div class="login-header login-caret">
@@ -72,6 +71,7 @@
                         <h3>Login Invalido</h3>
                         <p>Usuario o password incorrectos intente de nuevo</p>
                     </div>
+                    
                     <?php echo $this->fetch('content'); ?>
                 </div>
 
