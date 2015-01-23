@@ -5,7 +5,7 @@ App::import('Vendor', 'CodigoControl', array('file' => 'CodigoControl.php'));
 class FacturasController extends AppController {
 
     public $uses = array('Factura');
-    public $layou = 'imprenta';
+    public $layout = 'imprenta';
 
     public function index() {
         
@@ -18,6 +18,9 @@ class FacturasController extends AppController {
     }
     public function ver_factura()
     {
-        
+        $literaltotal = '';
+        $trabajos = array();
+        $this->set(compact('trabajos','literaltotal'));
     }
+    
 }
