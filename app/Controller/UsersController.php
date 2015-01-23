@@ -45,9 +45,9 @@ class UsersController extends AppController {
         }
         //$this->request->allowMethod('post', 'delete');
         if ($this->User->delete()) {
-            $this->Session->setFlash(__('se elimino correctamente el usuario.','msgbueno'));
+            $this->Session->setFlash('se elimino correctamente el usuario.','msgbueno');
         } else {
-            $this->Session->setFlash(__('no se pudo eliminar el usuario.','msgerror'));
+            $this->Session->setFlash('no se pudo eliminar el usuario.','msgerror');
         }
         $this->redirect(array('action' => 'index'));
     }

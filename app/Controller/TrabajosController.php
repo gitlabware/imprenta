@@ -89,18 +89,6 @@ class TrabajosController extends AppController {
         }
     }
 
-    public function guarda_archivo($archivo = null, $nombre = null) {
-        if ($archivo['error'] === UPLOAD_ERR_OK) {
-            if (move_uploaded_file($archivo['tmp_name'], WWW_ROOT . 'imagenest' . DS . $nombre)) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
     public function genera_trabajo($idTrabajo = null) {
         $this->Trabajo->create();
         $this->request->data['Trabajo']['id'] = $idTrabajo;

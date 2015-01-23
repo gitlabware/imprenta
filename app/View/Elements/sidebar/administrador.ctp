@@ -80,6 +80,25 @@
                 </li>
             </ul>
         </li>
+        
+        <li>
+            <a href="index.html">
+                <i class="entypo-database"></i>
+                <span class="title">Costos</span>
+            </a>
+            <ul>
+                <li>
+                    <a href="<?php echo $this->Html->url(array('controller'=>'Costos','action'=>'index'));?>">
+                        <span class="title">Listado de Costos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:" onclick="cargarmodal('<?php echo $this-> Html->url(array('controller'=>'Costos','action'=>'add'));?>');">
+                        <span class='title'>Nuevo Costo</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 
 </div>
