@@ -1,58 +1,27 @@
 <?php
 App::uses('AppModel', 'Model');
-
 /**
  * Costo Model
  *
+ * @property Insumo $Insumo
  */
-class Costo extends AppModel
-{
+class Costo extends AppModel {
 
-  /**
-   * Validation rules
-   *
-   * @var array
-   */
-  public $validate = array(
-    'preciocompra' => array(
-      'decimal' => array(
-        'rule' => array('decimal'),
-        //'message' => 'Your custom message here',
-        //'allowEmpty' => false,
-        //'required' => false,
-        //'last' => false, // Stop validation after this rule
-        //'on' => 'create', // Limit validation to 'create' or 'update' operations
-      ),
-    ),
-    'rendimiento' => array(
-      'numeric' => array(
-        'rule' => array('numeric'),
-        //'message' => 'Your custom message here',
-        //'allowEmpty' => false,
-        //'required' => false,
-        //'last' => false, // Stop validation after this rule
-        //'on' => 'create', // Limit validation to 'create' or 'update' operations
-      ),
-    ),
-    'costouno' => array(
-      'decimal' => array(
-        'rule' => array('decimal'),
-        //'message' => 'Your custom message here',
-        //'allowEmpty' => false,
-        //'required' => false,
-        //'last' => false, // Stop validation after this rule
-        //'on' => 'create', // Limit validation to 'create' or 'update' operations
-      ),
-    ),
-    'costodos' => array(
-      'decimal' => array(
-        'rule' => array('decimal'),
-        //'message' => 'Your custom message here',
-        //'allowEmpty' => false,
-        //'required' => false,
-        //'last' => false, // Stop validation after this rule
-        //'on' => 'create', // Limit validation to 'create' or 'update' operations
-      ),
-    ),
-  );
+
+	//The Associations below have been created with all possible keys, those that are not needed can be removed
+
+/**
+ * belongsTo associations
+ *
+ * @var array
+ */
+	public $belongsTo = array(
+		'Insumo' => array(
+			'className' => 'Insumo',
+			'foreignKey' => 'insumo_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
 }

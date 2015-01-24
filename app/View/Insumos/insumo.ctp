@@ -25,7 +25,6 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-
             <div class="form-group">
                 <label for="field-4" class="control-label">Tipo</label>
                 <?php echo $this->Form->select('tipo', array('Papel' => 'Papel'),array('class'=>'form-control', 'required')); ?>
