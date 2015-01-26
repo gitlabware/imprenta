@@ -17,7 +17,7 @@ class CostosController extends AppController {
      */
     public $components = array('Paginator');
     public $layout = 'imprenta';
-    public $uses = array('Costo');
+    public $uses = array('Costo', 'Insumo');
 
     /**
      * index method
@@ -35,17 +35,26 @@ class CostosController extends AppController {
     public function add() {
         
         $this->layout='ajax';
+
         if ($this->request->is('post')) {
             //debug($this->request->data); exit;
-            $insumo=$this->Insumo->find ('all', array('recursive'=>));
-            $this->Costo->create();
-            
+            //$insumo=$this->Insumo->find ('all', array('recursive'=>-1));
+            $precio20 = $this->request->data['Costo']['preciocompra']/$this->request->data['Costo']['rendimiento'];
+            $precio100 = $precio20*5;
+            $this->request->data['Costo']['costouno']=$precio20;
+            $this->request->data['Costo']['costodos']=$precio100;
+            $this->Costo->create();            
             if ($this->Costo->save($this->request->data)) {
-                $this->Session->setFlash ('El costo se registro correctamente','msgbueno');
+                $this->Session->setFlash (' El costo se registro correctamente','msgbueno');
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('Error al registrar', 'msgerror');
+                $this->Session->setFlash(' Error al registrar', 'msgerror');
             }
+        }else{
+            $insumos = $this->Insumo->find('all', array(
+                'recursive'=>-1,
+            ));
+            $this->set(compact('insumos'));
         }
     }
 

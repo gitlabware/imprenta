@@ -18,7 +18,7 @@
       <?php foreach ($costos as $c): ?>
         <tr>
           <td><?php echo $c['Costo']['id']; ?></td>
-          <td><?php echo $c['Costo']['nombre']; ?></td>
+          <td><?php echo $c['Insumo']['nombre']; ?></td>
           <td><?php echo $c['Costo']['preciocompra']; ?></td>
           <td><?php echo $c['Costo']['rendimiento']; ?></td>
           <td><?php echo $c['Costo']['costouno']?></td>

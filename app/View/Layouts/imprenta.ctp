@@ -106,7 +106,7 @@
                 <!-- Footer -->
                 <footer class="main hidden-print">
 
-                    &copy; 2014 <strong>Neon</strong> Admin Theme by <a href="http://laborator.co" target="_blank">Laborator</a>
+                    &copy; 2015 <strong>Praver</strong> Desarrollado por <a href="http://labware.com.bo" target="_blank">Labware</a>
 
                 </footer>
             </div>

@@ -34,23 +34,27 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Descripcion</label>
-                    <div class="col-sm-5">
+                    <label class="col-sm-2 control-label">Descripcion</label>
+                    <div class="col-sm-4">
                         <?php echo $this->Form->text('descripcion', array('class' => 'form-control', 'required', 'placeholder' => 'Ingrese alguna descripcion del trabajo')) ?>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Cantidad de papel</label>
-                    <div class="col-sm-5">
-                        <?php echo $this->Form->text('cantidad', array('class' => 'form-control', 'required', 'placeholder' => 'Ingrese la cantidad de papel','type' => 'number','min' => 1)) ?>
-                    </div>
+                    <label class="col-sm-2 control-label">Cantidad</label>
+                    <div class="col-sm-2">
+                        <?php echo $this->Form->text('cantidad_imagenes',array('class' => 'form-control','id' => 'idclinit','placeholder' => 'Ingrese nit o ci del cliente', 'type'=>'number'));?>
+                    </div>                                        
                 </div>
                 <div class="form-group" id="form-imagen-0">
-                    <label class="col-sm-3 control-label">Tipo de papel</label>
-                    <div class="col-sm-5">
+                    <label class="col-sm-2 control-label">Tipo de papel</label>
+                    <div class="col-sm-4">
                         <?php echo $this->Form->select('insumo_id', $papeles,array('class' => 'form-control', 'required')) ?>
                     </div>
+                    <label class="col-sm-2 control-label">Cantidad de papel</label>
+                    <div class="col-sm-2">
+                        <?php echo $this->Form->text('cantidad', array('class' => 'form-control', 'required', 'placeholder' => 'Ingrese la cantidad de papel','type' => 'number','min' => 1)) ?>
+                    </div>
+                    
                 </div>
+                
                 <div class="form-group">
                     <div class="col-sm-4">
                         <a class="btn btn-primary btn-block" onclick="add_imagen();"><i class="entypo-plus"></i>Add Imagen</a>
@@ -80,18 +84,40 @@
         cantimagenes++;
         bloqueimagen =
                 '<div class="form-group" id="form-imagen-' + cantimagenes + '">'
-                + '<label class="col-sm-3 control-label">Image Upload</label>'
-                + ' <div class="col-sm-6">'
+                + '<label class="col-sm-2 control-label">Cargado de Imagenes # '+ cantimagenes +'</label>'
+                + ' <div class="col-sm-4">'
                 + '     <div class="fileinput fileinput-new" data-provides="fileinput">'
                 + '         <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;" data-trigger="fileinput"><img src="http://placehold.it/200x150" alt="..."></div>'
                 + '         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px"></div>'
                 + '         <div>'
                 + '             <span class="btn btn-white btn-file">'
-                + '                 <span class="fileinput-new">Select image</span>'
-                + '                 <span class="fileinput-exists">Change</span>'
+                + '                 <span class="fileinput-new">Seleecionar Imagen</span>'
+                + '                 <span class="fileinput-exists">Cambiar</span>'
                 + '                 <input type="file" name="data[Imagen][' + cantimagenes + '][imagen]" accept="image/*" required>'
                 + '             </span>'
-                + '             <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput">Remove</a>'
+                + '             <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Eliminar</a>'
+                + '         </div>'
+                + '     </div>'
+                + ' </div>'
+                + ' <div class="col-sm-6">'
+                + '     <div class="row">'
+                + '         <label class="col-sm-4 control-label">Base</label>'
+                + '         <div class="col-sm-8">'
+                + '             <input type="number" class="form-control" placeholder="Ingrese la cantidad" min="1" required name="data[Imagen][' + cantimagenes + '][base]">'
+                + '         </div>'
+                + '     </div>'
+                + '     <br>'
+                + '     <div class="row">'
+                + '         <label class="col-sm-4 control-label">Altura</label>'
+                + '         <div class="col-sm-8">'
+                + '             <input type="number" class="form-control" placeholder="Ingrese la cantidad de imagenes" min="1" required name="data[Imagen][' + cantimagenes + '][altura]">'
+                + '         </div>'
+                + '     </div>'
+                + '     <br>'
+                + '     <div class="row">'
+                + '         <label class="col-sm-4 control-label">Porcentaje Impresion</label>'
+                + '         <div class="col-sm-8">'
+                + '             <input type="number" class="form-control" placeholder="Ingrese la cantidad de imagenes" min="1" required name="data[Imagen][' + cantimagenes + '][porcentaje]">'
                 + '         </div>'
                 + '     </div>'
                 + ' </div>'
@@ -101,6 +127,7 @@
 
         jQuery('#form-imagen-' + cantidad).after(bloqueimagen);
     }
+    
     function quita_imagen()
     {
         if (cantimagenes != 1) {
