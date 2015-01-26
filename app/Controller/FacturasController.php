@@ -4,17 +4,11 @@ App::import('Vendor', 'CodigoControl', array('file' => 'CodigoControl.php'));
 
 class FacturasController extends AppController {
 
-    public $uses = array('Factura','Parametrosfactura');
+    public $uses = array('Factura', 'Parametrosfactura', 'Trabajo');
     public $layout = 'imprenta';
 
     public function index() {
         
-    }
-
-    public function genera_factura() {
-
-        $nuevocodigo = new CodigoControl($autoriza, $idfactura, $nitcliente, $nueva_fecha, $rtotal, $llave);
-        $codigo = $nuevocodigo->generar();
     }
 
     public function ver_factura() {
@@ -38,6 +32,7 @@ class FacturasController extends AppController {
             }
         }
     }
+
     public function guardaparametro() {
         if (!empty($this->request->data)) {
             $this->Parametrosfactura->create();
@@ -46,13 +41,22 @@ class FacturasController extends AppController {
         }
         $this->redirect(array('action' => 'listaparametros'));
     }
-    public function prueba()
-    {
+
+    public function prueba() {
         $this->layout = 'ajax';
     }
-    public function listaparametros()
-    {
+
+    public function listaparametros() {
         $parametros = $this->Parametrosfactura->find('all');
         $this->set(compact('parametros'));
     }
+
+    private function genera_factura($idTrabajo = null) {
+        $trabajo = $this->Trabajo->find('all', array('conditions' => array('Trabajo.id' => $idTrabajo)));
+        if (!empty($trabajo)) {
+            $nuevocodigo = new CodigoControl($autoriza, $idfactura, $nitcliente, $nueva_fecha, $rtotal, $llave);
+            $codigo = $nuevocodigo->generar();
+        }
+    }
+
 }
