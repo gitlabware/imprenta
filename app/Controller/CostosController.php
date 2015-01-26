@@ -37,7 +37,9 @@ class CostosController extends AppController {
         $this->layout='ajax';
         if ($this->request->is('post')) {
             //debug($this->request->data); exit;
+            $insumo=$this->Insumo->find ('all', array('recursive'=>));
             $this->Costo->create();
+            
             if ($this->Costo->save($this->request->data)) {
                 $this->Session->setFlash ('El costo se registro correctamente','msgbueno');
                 return $this->redirect(array('action' => 'index'));

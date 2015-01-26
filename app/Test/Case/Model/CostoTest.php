@@ -13,7 +13,8 @@ class CostoTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.costo'
+		'app.costo',
+		'app.insumo'
 	);
 
 /**

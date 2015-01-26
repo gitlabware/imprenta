@@ -9,6 +9,8 @@
         <th>Nombre</th>
         <th>Precio de Compra</th>
         <th>Rendimiento</th>
+        <th>20% oficio 216*330</th>
+        <th>100% oficio </th>
         <th>Acciones</th>
       </tr>
       </thead>
@@ -19,6 +21,8 @@
           <td><?php echo $c['Costo']['nombre']; ?></td>
           <td><?php echo $c['Costo']['preciocompra']; ?></td>
           <td><?php echo $c['Costo']['rendimiento']; ?></td>
+          <td><?php echo $c['Costo']['costouno']?></td>
+          <td><?php echo $c['Costo']['costodos']?></td>
           <td><a href="javascript:"
                  onclick="cargarmodal('<?php echo $this->Html->url(array('action' => 'edit', $c['Costo']['id'])) ?>');"
                  class="btn btn-default btn-sm btn-icon icon-left"><i class="entypo-pencil"></i>Editar</a>

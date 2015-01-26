@@ -19,6 +19,7 @@ class CostoFixture extends CakeTestFixture {
 		'costodos' => array('type' => 'decimal', 'null' => true, 'default' => '0.00', 'length' => '15,2', 'unsigned' => false),
 		'created' => array('type' => 'date', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'date', 'null' => true, 'default' => null),
+		'insumo_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -38,8 +39,9 @@ class CostoFixture extends CakeTestFixture {
 			'rendimiento' => 1,
 			'costouno' => '',
 			'costodos' => '',
-			'created' => '2015-01-21',
-			'modified' => '2015-01-21'
+			'created' => '2015-01-24',
+			'modified' => '2015-01-24',
+			'insumo_id' => 1
 		),
 	);
 
