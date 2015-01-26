@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>css/custom.css">
 
         <script src="<?php echo $this->webroot; ?>js/jquery-1.11.0.min.js"></script>
+        
         <script>$.noConflict();</script>
 
         <!--[if lt IE 9]><script src="<?php echo $this->webroot; ?>js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -130,6 +131,7 @@
 
                 }
             </script>
+            
             <div class="modal fade" id="modalimprenta">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -155,6 +157,7 @@
                     </div>
                 </div>
             </div>
+            
             <!-- Modal  para select -->
             <script>
                 function cargarmodal2(urll)
@@ -201,7 +204,6 @@
             </div>
 
         </div>
-
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/jcrop/jquery.Jcrop.min.css">
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/dropzone/dropzone.css">
 
@@ -209,6 +211,7 @@
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/datatables/responsive/css/datatables.responsive.css">
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/select2/select2-bootstrap.css">
         <link rel="stylesheet" href="<?php echo $this->webroot; ?>js/select2/select2.css">
+        
 
         <!-- Bottom scripts (common) -->
         <script src="<?php echo $this->webroot; ?>js/gsap/main-gsap.js"></script>
@@ -229,7 +232,9 @@
         <script src="<?php echo $this->webroot; ?>js/datatables/responsive/js/datatables.responsive.js"></script>
         <script src="<?php echo $this->webroot; ?>js/select2/select2.min.js"></script>
         <script src="<?php echo $this->webroot; ?>js/neon-chat.js"></script>
-
+        
+        <script src="<?php echo $this->webroot; ?>js/jquery.inputmask.bundle.min.js"></script>
+        
         <?php echo $this->fetch('scriptadd'); ?>
         <!-- JavaScripts initializations and stuff -->
         <script src="<?php echo $this->webroot; ?>js/neon-custom.js"></script>
@@ -237,6 +242,6 @@
 
         <!-- Demo Settings -->
         <script src="<?php echo $this->webroot; ?>js/neon-demo.js"></script>
-
+        
     </body>
 </html>

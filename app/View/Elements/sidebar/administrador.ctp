@@ -99,6 +99,30 @@
                 </li>
             </ul>
         </li>
+        
+        <li>
+            <a href="index.html">
+                <i class="entypo-database"></i>
+                <span class="title">Facturacion</span>
+            </a>
+            <ul>
+                <li>
+                    <a href="<?php echo $this->Html->url(array('controller'=>'Facturas','action'=>'index'));?>">
+                        <span class="title">Listado de Facturas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->Html->url(array('controller'=>'Facturas','action'=>'index'));?>">
+                        <span class="title">Listado de Docificacion</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:" onclick="cargarmodal('<?php echo $this-> Html->url(array('controller'=>'Facturas','action'=>'parametrofactura'));?>');">
+                        <span class='title'>Nueva Docificacion</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 
 </div>
