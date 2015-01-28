@@ -27,7 +27,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="field-4" class="control-label">Tipo</label>
-                <?php echo $this->Form->select('tipo', array('Papel' => 'Papel'),array('class'=>'form-control', 'required')); ?>
+                <?php echo $this->Form->select('tipo', $insumo,array('class'=>'form-control', 'required')); ?>
             </div>	
 
         </div>
@@ -44,7 +44,7 @@
         <div class="col-md-4">
 
             <div class="form-group">
-                <label for="field-6" class="control-label">Cantidad</label>
+                <label for="field-6" class="control-label">Cantidad X Paquete</label>
                 <?php echo $this->Form->text('cantidad', array('class' => 'form-control','placeholder'=>'registre la cantidad','required', 'type'=>'number','min'=>1)); ?>
             </div>	
 

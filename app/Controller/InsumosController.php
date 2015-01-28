@@ -18,6 +18,9 @@ class InsumosController extends AppController {
         //debug($idinsumo); die;
         //$this->requets->data = $this->Insumo->read();
         $this->request->data = $this->Insumo->read();
+        $insumo=$this->Insumo->find('list',array('fields'=> 'Insumo.tipo','group'=>'Insumo.tipo', 'order'=>'Insumo.tipo ASC'));
+        //debug($insumo); exit;
+        $this->set(compact('insumo'));
     }
 
     public function guardarinsumo() {
@@ -29,8 +32,11 @@ class InsumosController extends AppController {
             $this->Session->setFlash('Se registro correctamente', 'msgbueno');
         } else {
             $this->Session->setFlash($valida);
+            
         }
         $this->redirect(array('action' => 'index'));
+        
+        
     }
 
     public function delete($id = null) {
