@@ -5,7 +5,7 @@ App::uses('AppController', 'Controller');
 class InsumosController extends AppController {
 
     public $layout = 'imprenta';
-    public $uses = array('Insumo', 'Inventario');
+    public $uses = array('Insumo', 'Inventario', 'Tipo');
 
     public function index() {
         $insumos = $this->Insumo->find('all');
@@ -18,7 +18,7 @@ class InsumosController extends AppController {
         //debug($idinsumo); die;
         //$this->requets->data = $this->Insumo->read();
         $this->request->data = $this->Insumo->read();
-        $insumo=$this->Insumo->find('list',array('fields'=> 'Insumo.tipo','group'=>'Insumo.tipo', 'order'=>'Insumo.tipo ASC'));
+        $insumo=$this->Tipo->find('list',array('fields'=> 'Tipo.nombre','group'=>'Tipo.nombre', 'order'=>'Tipo.nombre ASC'));
         //debug($insumo); exit;
         $this->set(compact('insumo'));
     }
