@@ -83,7 +83,7 @@
         
         <li>
             <a href="index.html">
-                <i class="entypo-database"></i>
+                <i class="entypo-docs"></i>
                 <span class="title">Costos</span>
             </a>
             <ul>
@@ -102,7 +102,7 @@
         
         <li>
             <a href="index.html">
-                <i class="entypo-database"></i>
+                <i class="entypo-newspaper"></i>
                 <span class="title">Facturacion</span>
             </a>
             <ul>
@@ -112,7 +112,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $this->Html->url(array('controller'=>'Facturas','action'=>'index'));?>">
+                    <a href="<?php echo $this->Html->url(array('controller'=>'Facturas','action'=>'listaparametros'));?>">
                         <span class="title">Listado de Docificacion</span>
                     </a>
                 </li>

@@ -11,23 +11,27 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($trabajos as $tra):?>
-                <?php 
-                $clase = '';
-                if($tra['Trabajo']['estado'] == 1)
-                {
-                    $clase = 'success';
-                }
-                ?>
-                <tr>
-                    <td class="<?php echo $clase;?>"><?php echo $tra['Trabajo']['id'];?></td>
-                    <td class="<?php echo $clase;?>"><?php echo $tra['Trabajo']['descripcion'];?></td>
-                    <td class="<?php echo $clase;?>"><?php echo $tra['Cliente']['nombre'];?></td>
-                    <td class="<?php echo $clase;?>">
-                        <a href="<?php echo $this->Html->url(array('action' => 'vista_trabajo',$tra['Trabajo']['id']));?>" class="btn btn-info btn-sm btn-icon icon-left"><i class="entypo-eye"></i>Ver Trabajo</a>
-                    </td>
-                </tr>
-                <?php endforeach;?>
+                <?php foreach ($trabajos as $tra): ?>
+                    <?php
+                    $clase = '';
+                    if ($tra['Trabajo']['estado'] == 1) {
+                        $clase = 'success';
+                    } elseif ($tra['Trabajo']['estado'] == 'Facturado') {
+                        $clase = 'info';
+                    }
+                    ?>
+                    <tr>
+                        <td class="<?php echo $clase; ?>"><?php echo $tra['Trabajo']['id']; ?></td>
+                        <td class="<?php echo $clase; ?>"><?php echo $tra['Trabajo']['descripcion']; ?></td>
+                        <td class="<?php echo $clase; ?>"><?php echo $tra['Cliente']['nombre']; ?></td>
+                        <td class="<?php echo $clase; ?>">
+                            <a href="<?php echo $this->Html->url(array('action' => 'vista_trabajo', $tra['Trabajo']['id'])); ?>" class="btn btn-info btn-sm btn-icon icon-left"><i class="entypo-eye"></i>Ver Trabajo</a>
+                            <?php if ($tra['Trabajo']['estado'] != "Facturado"): ?>
+                                <a href="<?php echo $this->Html->url(array('controller' => 'Facturas', 'action' => 'genera_factura', $tra['Trabajo']['id'])); ?>" class="btn btn-success btn-sm btn-icon icon-left"><i class="entypo-newspaper"></i>Facturar</a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
