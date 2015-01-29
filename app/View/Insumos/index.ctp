@@ -21,7 +21,7 @@
                     <td><?php echo $in['Insumo']['id']?></td>
                     <td><?php echo $in['Insumo']['nombre']?></td>
                     <td><?php echo $in['Insumo']['descripcion']?></td>
-                    <td><?php echo $in['Insumo']['tipo']?></td>
+                    <td><?php echo $in['Tipo']['nombre']?></td>
                     <td><?php echo $in['Insumo']['precio']?></td>
                     <td><?php echo $in['Insumo']['cantidad']?></td>
                     <td><?php echo $this->requestAction(array('action' => 'gettotalinsumo',$in['Insumo']['id']))?></td>

@@ -27,7 +27,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="field-4" class="control-label">Tipo</label>
-                <?php echo $this->Form->select('tipo', $insumo,array('class'=>'form-control', 'required')); ?>
+                <?php echo $this->Form->select('tipo_id', $insumo,array('class'=>'form-control', 'required')); ?>
             </div>	
 
         </div>
@@ -36,7 +36,7 @@
 
             <div class="form-group">
                 <label for="field-5" class="control-label">Precio</label>
-                <?php echo $this->Form->text('precio', array('class' => 'form-control', 'placeholder' => 'precio', 'required','type'=>'number','min'=>0)); ?>
+                <?php echo $this->Form->text('precio', array('class' => 'form-control', 'placeholder' => 'precio', 'required','type'=>'number','min'=>0,'step' => 'any')); ?>
             </div>	
 
         </div>
