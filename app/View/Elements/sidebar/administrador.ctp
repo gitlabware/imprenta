@@ -2,7 +2,7 @@
     <header class="logo-env">
         <!-- logo -->
         <div class="logo">
-            <a href="<?php echo $this->Html->url(array('controller' => 'Users','action' => 'index'));?>">
+            <a href="<?php echo $this->Html->url(array('controller' => 'Users', 'action' => 'index')); ?>">
                 <img src="<?php echo $this->webroot; ?>images/logo@2x.png" width="120" alt="" />
             </a>
         </div>
@@ -33,12 +33,12 @@
             </a>
             <ul>
                 <li>
-                    <a href="<?php echo $this->Html->url(array('controller' => 'Users','action' => 'index'));?>">
+                    <a href="<?php echo $this->Html->url(array('controller' => 'Users', 'action' => 'index')); ?>">
                         <span class="title">Listado de Usuarios</span>
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('controller' => 'Users','action' => 'usuario'));?>');">
+                    <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('controller' => 'Users', 'action' => 'usuario')); ?>');">
                         <span class="title">Nuevo Usuario</span>
                     </a>
                 </li>
@@ -51,12 +51,12 @@
             </a>
             <ul>
                 <li>
-                    <a href="<?php echo $this->Html->url(array('controller' => 'Trabajos','action' => 'index'));?>">
+                    <a href="<?php echo $this->Html->url(array('controller' => 'Trabajos', 'action' => 'index')); ?>">
                         <span class="title">Listado de Trabajos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $this->Html->url(array('controller' => 'Trabajos','action' => 'trabajo'));?>" >
+                    <a href="<?php echo $this->Html->url(array('controller' => 'Trabajos', 'action' => 'trabajo')); ?>" >
                         <span class="title">Nuevo Trabajo</span>
                     </a>
                 </li>
@@ -69,18 +69,18 @@
             </a>
             <ul>
                 <li>
-                    <a href="<?php echo $this->Html->url(array('controller' => 'Insumos','action' => 'index'));?>">
+                    <a href="<?php echo $this->Html->url(array('controller' => 'Insumos', 'action' => 'index')); ?>">
                         <span class="title">Listado de Insumos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('controller' => 'Insumos','action' => 'insumo'));?>');">
+                    <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('controller' => 'Insumos', 'action' => 'insumo')); ?>');">
                         <span class="title">Nuevo Insumo</span>
                     </a>
                 </li>
             </ul>
         </li>
-        
+
         <li>
             <a href="index.html">
                 <i class="entypo-docs"></i>
@@ -88,13 +88,37 @@
             </a>
             <ul>
                 <li>
-                    <a href="<?php echo $this->Html->url(array('controller'=>'Costos','action'=>'index'));?>">
+                    <a href="<?php echo $this->Html->url(array('controller' => 'Costos', 'action' => 'index')); ?>">
                         <span class="title">Listado de Costos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:" onclick="cargarmodal('<?php echo $this-> Html->url(array('controller'=>'Costos','action'=>'add'));?>');">
+                    <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('controller' => 'Costos', 'action' => 'add')); ?>');">
                         <span class='title'>Nuevo Costo</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="index.html">
+                <i class="entypo-newspaper"></i>
+                <span class="title">Facturacion</span>
+            </a>
+            <ul>
+                <li>
+                    <a href="<?php echo $this->Html->url(array('controller' => 'Facturas', 'action' => 'index')); ?>">
+                        <span class="title">Listado de Facturas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->Html->url(array('controller' => 'Facturas', 'action' => 'listaparametros')); ?>">
+                        <span class="title">Listado de Docificacion</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('controller' => 'Facturas', 'action' => 'parametrofactura')); ?>');">
+                        <span class='title'>Nueva Docificacion</span>
                     </a>
                 </li>
             </ul>
@@ -103,22 +127,17 @@
         <li>
             <a href="index.html">
                 <i class="entypo-newspaper"></i>
-                <span class="title">Facturacion</span>
+                <span class="title">Tipos</span>
             </a>
             <ul>
                 <li>
-                    <a href="<?php echo $this->Html->url(array('controller'=>'Facturas','action'=>'index'));?>">
-                        <span class="title">Listado de Facturas</span>
+                    <a href="<?php echo $this->Html->url(array('controller' => 'Tipos', 'action' => 'index')); ?>">
+                        <span class="title">Listado de Tipos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $this->Html->url(array('controller'=>'Facturas','action'=>'listaparametros'));?>">
-                        <span class="title">Listado de Docificacion</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" onclick="cargarmodal('<?php echo $this-> Html->url(array('controller'=>'Facturas','action'=>'parametrofactura'));?>');">
-                        <span class='title'>Nueva Docificacion</span>
+                    <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('controller' => 'Tipos', 'action' => 'add')); ?>');">
+                     <span class="title">Nuevo Tipo</span>
                     </a>
                 </li>
             </ul>

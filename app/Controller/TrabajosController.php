@@ -3,7 +3,7 @@
 class TrabajosController extends AppController {
 
     public $layout = 'imprenta';
-    public $uses = array('Trabajo', 'User', 'Imagene', 'Cliente', 'Insumo', 'Inventario');
+    public $uses = array('Trabajo', 'User', 'Imagene', 'Cliente', 'Insumo', 'Inventario','Tipo');
 
     public function beforeFilter() {
         parent::beforeFilter();
@@ -11,7 +11,7 @@ class TrabajosController extends AppController {
     }
 
     public function trabajo() {
-        $papeles = $this->Insumo->find('list', array('fields' => 'Insumo.nombre', 'conditions' => array('Insumo.tipo' => 'Papel')));
+        $papeles = $this->Insumo->find('list', array('fields' => 'Insumo.nombre', 'conditions' => array('Insumo.tipo_id' => 1)));
         $this->set(compact('clientes', 'papeles'));
     }
 

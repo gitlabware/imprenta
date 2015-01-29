@@ -64,6 +64,10 @@ class CostosController extends AppController {
             throw new NotFoundException('Costo invalido', 'msgerror');
         }
         if ($this->request->is(array('post', 'put'))) {
+            $precio20=$this->request->data['Costo']['preciocompra']/$this->request->data['Costo']['rendimiento'];
+            $precio100 = $precio20*5;
+            $this->request->data['Costo']['costouno']=$precio20;
+            $this->request->data['Costo']['costodos']=$precio100;
             if ($this->Costo->save($this->request->data)) {
                 $this->Session->setFlash('Modificacion correcta', 'msgbueno');
                 return $this->redirect(array('action' => 'index'));
@@ -73,6 +77,9 @@ class CostosController extends AppController {
         } else {
             $options = array('conditions' => array('Costo.' . $this->Costo->primaryKey => $id));
             $this->request->data = $this->Costo->find('first', $options);
+            $insumos =  $this->Insumo->find('all', array('recusrsive'=>-1,));
+            $this->set(compact('insumos'));
+            //debug($this->request->data); exit;
         }
     }
 
