@@ -3,7 +3,7 @@
 class TrabajosController extends AppController {
 
     public $layout = 'imprenta';
-    public $uses = array('Trabajo', 'User', 'Imagene', 'Cliente', 'Insumo', 'Inventario','Tipo');
+    public $uses = array('Trabajo', 'User', 'Imagene', 'Cliente', 'Insumo', 'Inventario','Tipo','Configuracione');
 
     public function beforeFilter() {
         parent::beforeFilter();
@@ -26,12 +26,18 @@ class TrabajosController extends AppController {
                 $this->request->data['Trabajo']['cliente_id'] = $this->Cliente->getLastInsertID();
             }
             //debug($this->request->data);exit;
+            $configuracion = $this->Configuracione->find('first');
+            $costo = 0;
+            if(!empty($configuracion))
+            {
+                $costo = $this->request->data['Trabajo']['costo'] = $configuracion['Configuracione']['costocm'];
+            }
             $this->Trabajo->create();
             $this->Trabajo->save($this->request->data['Trabajo']);
             $idTrabajo = $this->Trabajo->getLastInsertID();
             foreach ($this->request->data['Imagen'] as $img) {
                 $this->request->data['Adjunto'] = $img;
-                $this->carga_adjunto($idTrabajo);
+                $this->carga_adjunto($idTrabajo,$costo);
             }
             $this->Session->setFlash('Se registro correctamente el trabajo!!!', 'msgbueno');
             $this->redirect(array('action' => 'vista_trabajo', $idTrabajo));
@@ -46,7 +52,7 @@ class TrabajosController extends AppController {
         //debug($imagenes);exit;
     }
 
-    public function carga_adjunto($idTrabajo = null) {
+    public function carga_adjunto($idTrabajo = null,$costoh = NULL) {
         //debug($this->request->data);exit;
         $archivoImagen = $this->request->data['Adjunto']['imagen'];
         $nombreOriginal = $this->request->data['Adjunto']['imagen']['name'];
@@ -81,6 +87,7 @@ class TrabajosController extends AppController {
             $this->request->data['Imagene']['base'] = $this->request->data['Adjunto']['base'];
             //$this->request->data['Imagene']['cantidad_imagenes'] = $this->request->data['Trabajo']['cantidad_imagenes'];
             $this->request->data['Imagene']['altura'] = $this->request->data['Adjunto']['altura'];
+            $this->request->data['Imagene']['costo_hoja'] = ($this->request->data['Imagene']['altura']*$this->request->data['Imagene']['base']*($coloresCMYK['usado']/100)*$costoh);
             $this->request->data['Imagene']['porcentaje'] = $this->request->data['Adjunto']['porcentaje'];
             $this->request->data['Imagene']['trabajo_id'] = $idTrabajo;
             //$this->request->data['Imagene']['cantidad'] = $this->request->data['Adjunto']['cantidad'];
@@ -214,10 +221,10 @@ class TrabajosController extends AppController {
                 
             }
         }
-        $array['c'] = ($ci*100/($numero_pixeles));
-        $array['m'] = ($ma*100/($numero_pixeles));
-        $array['y'] = ($ye*100/($numero_pixeles));
-        $array['k'] = ($kl*100/($numero_pixeles));
+        $array['c'] = ($ci*100/($numero_pixeles -$aux));
+        $array['m'] = ($ma*100/($numero_pixeles -$aux));
+        $array['y'] = ($ye*100/($numero_pixeles -$aux));
+        $array['k'] = ($kl*100/($numero_pixeles -$aux));
         $total_usado = ($numero_pixeles -$aux)*(100/$numero_pixeles);
         $array['usado'] = $total_usado;
         return $array;

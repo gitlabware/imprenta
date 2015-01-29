@@ -53,13 +53,15 @@
                             <tr>
                                 <td><b>Porcentaje:</b></td>
                                 <td><?php echo $im['Imagene']['porcentaje'] ?> %</td>
-                                <td><b>Precio por hoja: </b></td>
-                                <td><?php echo $trabajo['Trabajo']['cantidad_imagenes']; ?></td>
+                                <td><b>Costo x Hoja </b></td>
+                                <td><?php echo $im['Imagene']['costo_hoja']; ?></td>
                             </tr>                               
                             <tr>
                                 <td><b>Papel: </b></td>
                                 <td colspan="3"><?php echo $trabajo['Insumo']['nombre']; ?></td>
+                                
                             </tr>
+                            
                         </table>
                     </div>
                 </div>
