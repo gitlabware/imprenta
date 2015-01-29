@@ -57,9 +57,7 @@ class TrabajosController extends AppController {
         if ($this->guarda_archivo($archivoImagen, $nombre)) {
             $rutaImagen = 'imagenest' . DS . $nombre;
             $tamanoImagen = $this->px2cm($rutaImagen, 300);
-            $coloresEnRgb = $this->coloresRgb($rutaImagen);
-            $toRgb = $this->hex2rgb($coloresEnRgb);
-            $coloresCMYK = $this->rgb2cmyk($toRgb);
+            $coloresCMYK = $this->coloresRgb($rutaImagen);
             //debug($tamanoImagen);die;
             /* debug($coloresCMYK['c']);
               debug($coloresCMYK['m']);
@@ -67,10 +65,10 @@ class TrabajosController extends AppController {
               debug($coloresCMYK['k']);
               exit(); */
             //debug($coloresCMYK);
-            $c = round($coloresCMYK['c'], 2) * 100;
-            $m = round($coloresCMYK['m'], 2) * 100;
-            $y = round($coloresCMYK['y'], 2) * 100;
-            $k = round($coloresCMYK['k'], 2) * 100;
+            $c = $coloresCMYK['c'];
+            $m = $coloresCMYK['m'];
+            $y = $coloresCMYK['y'];
+            $k = $coloresCMYK['k'];
             //debug($coloresEnRgb);
             //die;
             $this->request->data['Imagene']['url'] = 'imagenest' . DS . $nombre;
@@ -78,7 +76,7 @@ class TrabajosController extends AppController {
             $this->request->data['Imagene']['m'] = $m;
             $this->request->data['Imagene']['y'] = $y;
             $this->request->data['Imagene']['k'] = $k;
-            $this->request->data['Imagene']['rgb'] = $coloresEnRgb;
+            //$this->request->data['Imagene']['rgb'] = $coloresEnRgb;
             $this->request->data['Imagene']['base'] = $this->request->data['Adjunto']['base'];
             //$this->request->data['Imagene']['cantidad_imagenes'] = $this->request->data['Trabajo']['cantidad_imagenes'];
             $this->request->data['Imagene']['altura'] = $this->request->data['Adjunto']['altura'];
@@ -168,37 +166,58 @@ class TrabajosController extends AppController {
         $this->set(compact('campoform', 'scliente', 'div'));
     }
 
-    private function coloresRgb($imagen = null) {
-        //$img = "fanta.jpg";
+    public function coloresRgb($imagen = null) {
         $img = imagecreatefromjpeg($imagen);
         //demo
         $w = imagesx($img);
         $h = imagesy($img);
         $r = $g = $b = 0;
+        $ci = $ma = $ye = $kl = 0;
+        $numero_pixeles = $w * $h;
+        $aux = 0;
+        //debug($numero_pixeles);
         for ($y = 0; $y < $h; $y++) {
             for ($x = 0; $x < $w; $x++) {
+                $aux++;
                 $rgb = imagecolorat($img, $x, $y);
                 $r += $rgb >> 16;
                 $g += $rgb >> 8 & 255;
                 $b += $rgb & 255;
+                $r = dechex(round($r));
+                $g = dechex(round($g));
+                $b = dechex(round($b));
+
+                if (strlen($r) < 2) {
+                    $r = 0 . $r;
+                }
+                if (strlen($g) < 2) {
+                    $g = 0 . $g;
+                }
+                if (strlen($b) < 2) {
+                    $b = 0 . $b;
+                }
+                $colorRgb = "#" . $r . $g . $b;
+                
+                $toRgb = $this->hex2rgb($colorRgb);
+                $coloresCMYK = $this->rgb2cmyk($toRgb);
+                $ci = $ci + round($coloresCMYK['c']);
+                $ma = $ma + round($coloresCMYK['m']);
+                $ye = $ye + round($coloresCMYK['y']);
+
+                $kl = $kl + round($coloresCMYK['k']);
+                if ($coloresCMYK['k'] < 0) {
+                    debug($toRgb);
+                    debug($coloresCMYK['k']);
+                    exit;
+                }
             }
         }
-        $pxls = $w * $h;
-        $r = dechex(round($r / $pxls));
-        $g = dechex(round($g / $pxls));
-        $b = dechex(round($b / $pxls));
-        if (strlen($r) < 2) {
-            $r = 0 . $r;
-        }
-        if (strlen($g) < 2) {
-            $g = 0 . $g;
-        }
-        if (strlen($b) < 2) {
-            $b = 0 . $b;
-        }
-        $colorRgb = "#" . $r . $g . $b;
-        //echo "son #" . $r . $g . $b . '<br />';
-        return $colorRgb;
+        $array['c'] = ($ci*100/$numero_pixeles);
+        $array['m'] = ($ma*100/$numero_pixeles);
+        $array['y'] = ($ye*100/$numero_pixeles);
+        $array['k'] = ($kl*100/$numero_pixeles);
+        return $array;
+        
     }
 
     private function hex2rgb($hex) {
