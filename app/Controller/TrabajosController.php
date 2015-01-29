@@ -76,6 +76,7 @@ class TrabajosController extends AppController {
             $this->request->data['Imagene']['m'] = $m;
             $this->request->data['Imagene']['y'] = $y;
             $this->request->data['Imagene']['k'] = $k;
+            $this->request->data['Imagene']['usado'] = $coloresCMYK['usado'];
             //$this->request->data['Imagene']['rgb'] = $coloresEnRgb;
             $this->request->data['Imagene']['base'] = $this->request->data['Adjunto']['base'];
             //$this->request->data['Imagene']['cantidad_imagenes'] = $this->request->data['Trabajo']['cantidad_imagenes'];
@@ -178,11 +179,12 @@ class TrabajosController extends AppController {
         //debug($numero_pixeles);
         for ($y = 0; $y < $h; $y++) {
             for ($x = 0; $x < $w; $x++) {
-                $aux++;
+                
                 $rgb = imagecolorat($img, $x, $y);
                 $r += $rgb >> 16;
                 $g += $rgb >> 8 & 255;
                 $b += $rgb & 255;
+                
                 $r = dechex(round($r));
                 $g = dechex(round($g));
                 $b = dechex(round($b));
@@ -199,25 +201,26 @@ class TrabajosController extends AppController {
                 $colorRgb = "#" . $r . $g . $b;
                 
                 $toRgb = $this->hex2rgb($colorRgb);
+                if(($toRgb['r'] == 255) && ($toRgb['g'] == 255) && ($toRgb['b']==255))
+                {
+                    $aux++;
+                }
                 $coloresCMYK = $this->rgb2cmyk($toRgb);
                 $ci = $ci + round($coloresCMYK['c']);
                 $ma = $ma + round($coloresCMYK['m']);
                 $ye = $ye + round($coloresCMYK['y']);
 
                 $kl = $kl + round($coloresCMYK['k']);
-                if ($coloresCMYK['k'] < 0) {
-                    debug($toRgb);
-                    debug($coloresCMYK['k']);
-                    exit;
-                }
+                
             }
         }
-        $array['c'] = ($ci*100/$numero_pixeles);
-        $array['m'] = ($ma*100/$numero_pixeles);
-        $array['y'] = ($ye*100/$numero_pixeles);
-        $array['k'] = ($kl*100/$numero_pixeles);
+        $array['c'] = ($ci*100/($numero_pixeles));
+        $array['m'] = ($ma*100/($numero_pixeles));
+        $array['y'] = ($ye*100/($numero_pixeles));
+        $array['k'] = ($kl*100/($numero_pixeles));
+        $total_usado = ($numero_pixeles -$aux)*(100/$numero_pixeles);
+        $array['usado'] = $total_usado;
         return $array;
-        
     }
 
     private function hex2rgb($hex) {
