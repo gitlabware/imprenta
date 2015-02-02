@@ -51,19 +51,33 @@
                                 <td><?php echo $im['Imagene']['altura'] ?> cm.</td>                    
                             </tr>
                             <tr>
-                                <td><b>Porcentaje:</b></td>
-                                <td><?php echo $im['Imagene']['porcentaje'] ?> %</td>
-                                <td><b>Costo x Hoja </b></td>
-                                <td><?php echo $im['Imagene']['costo_hoja']; ?></td>
-                            </tr>                               
-                            <tr>
                                 <td><b>Papel: </b></td>
                                 <td colspan="3"><?php echo $trabajo['Insumo']['nombre']; ?></td>
                                 
                             </tr>
+                            <tr>
+                                <td><b>Porcentaje:</b></td>
+                                <td><?php echo $im['Imagene']['usado'] ?> %</td>
+                                <td><b>Costo x Hoja </b></td>
+                                <td><?php echo $im['Imagene']['costo_hoja']; ?></td>
+                            </tr>                               
+                            
                             
                         </table>
                     </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $im['Imagene']['usado']; ?>%">
+                                <span class="sr-only">40% Complete (success)</span>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
@@ -157,19 +171,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-
-                    <div class="col-md-12">
-
-                        <div class="progress progress-striped active">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $im['Imagene']['usado']; ?>%">
-                                <span class="sr-only">40% Complete (success)</span>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
+                
 
             </div>
 

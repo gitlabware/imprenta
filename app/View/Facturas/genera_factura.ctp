@@ -16,14 +16,14 @@
             </div>
             <div align="center">
                 NIT : <?php echo $datoscodigo['nit'] ?><br>
-                FACTURA Nro <?php echo $datoscodigo['numero'] ?><br>
+                FACTURA Nro <?php echo sprintf("%06d",$datoscodigo['numero']);?><br>
                 AUTORIZACI&Oacute;N Nro <?php echo $datoscodigo['numero_autorizacion'] ?>
             </div>
             <div align="center" style="">
                 <div style="border: black solid 1px; width: 300px"></div>
             </div>
             <div style="text-align: center;">
-                Actividad Económica: Venta de partes, piezas y accesorios de vehículos automotores
+                Actividad Económica: Realizacion de trabajos de impresion
             </div>
             <div style="padding-left: 25px;">
                 Fecha: <?php echo date("Y-m-d H:i:s"); ?><br>
