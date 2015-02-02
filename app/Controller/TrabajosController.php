@@ -2,8 +2,9 @@
 
 class TrabajosController extends AppController {
 
+    public $components = array('RequestHandler');
     public $layout = 'imprenta';
-    public $uses = array('Trabajo', 'User', 'Imagene', 'Cliente', 'Insumo', 'Inventario','Tipo','Configuracione');
+    public $uses = array('Trabajo', 'User', 'Imagene', 'Cliente', 'Insumo', 'Inventario', 'Tipo', 'Configuracione');
 
     public function beforeFilter() {
         parent::beforeFilter();
@@ -14,11 +15,11 @@ class TrabajosController extends AppController {
         $papeles = $this->Insumo->find('list', array('fields' => 'Insumo.nombre', 'conditions' => array('Insumo.tipo_id' => 1)));
         $this->set(compact('clientes', 'papeles'));
     }
-
+    
     public function guarda_trabajo() {
         if (!empty($this->request->data)) {
-            //debug($this->request->data);
-            //die;
+            /*debug($this->request->data);
+            die;*/
             $this->request->data['Trabajo']['estado'] = 0;
             if (!empty($this->request->data['Cliente']['nombre'])) {
                 $this->Cliente->create();
@@ -28,8 +29,7 @@ class TrabajosController extends AppController {
             //debug($this->request->data);exit;
             $configuracion = $this->Configuracione->find('first');
             $costo = 0;
-            if(!empty($configuracion))
-            {
+            if (!empty($configuracion)) {
                 $costo = $this->request->data['Trabajo']['costo'] = $configuracion['Configuracione']['costocm'];
             }
             $this->Trabajo->create();
@@ -37,7 +37,7 @@ class TrabajosController extends AppController {
             $idTrabajo = $this->Trabajo->getLastInsertID();
             foreach ($this->request->data['Imagen'] as $img) {
                 $this->request->data['Adjunto'] = $img;
-                $this->carga_adjunto($idTrabajo,$costo);
+                $this->carga_adjunto($idTrabajo, $costo);
             }
             $this->Session->setFlash('Se registro correctamente el trabajo!!!', 'msgbueno');
             $this->redirect(array('action' => 'vista_trabajo', $idTrabajo));
@@ -52,16 +52,11 @@ class TrabajosController extends AppController {
         //debug($imagenes);exit;
     }
 
-    public function carga_adjunto($idTrabajo = null,$costoh = NULL) {
+    public function carga_adjunto($idTrabajo = null, $costoh = NULL) {
         //debug($this->request->data);exit;
-        $archivoImagen = $this->request->data['Adjunto']['imagen'];
-        $nombreOriginal = $this->request->data['Adjunto']['imagen']['name'];
-        //debug($archivoImagen['error']);exit;
-        $nombre_tipo = explode(".", $nombreOriginal);
-        //debug(end($nombre_tipo));exit;
-        $nombre = string::uuid() . "." . end($nombre_tipo);
-        if ($this->guarda_archivo($archivoImagen, $nombre)) {
-            $rutaImagen = 'imagenest' . DS . $nombre;
+        
+        if (TRUE) {
+            $rutaImagen = $this->request->data['Adjunto']['nombre_url'];
             $tamanoImagen = $this->px2cm($rutaImagen, 300);
             $coloresCMYK = $this->coloresRgb($rutaImagen);
             //debug($tamanoImagen);die;
@@ -77,7 +72,7 @@ class TrabajosController extends AppController {
             $k = $coloresCMYK['k'];
             //debug($coloresEnRgb);
             //die;
-            $this->request->data['Imagene']['url'] = 'imagenest' . DS . $nombre;
+            $this->request->data['Imagene']['url'] = $rutaImagen;
             $this->request->data['Imagene']['c'] = $c;
             $this->request->data['Imagene']['m'] = $m;
             $this->request->data['Imagene']['y'] = $y;
@@ -87,7 +82,7 @@ class TrabajosController extends AppController {
             $this->request->data['Imagene']['base'] = $this->request->data['Adjunto']['base'];
             //$this->request->data['Imagene']['cantidad_imagenes'] = $this->request->data['Trabajo']['cantidad_imagenes'];
             $this->request->data['Imagene']['altura'] = $this->request->data['Adjunto']['altura'];
-            $this->request->data['Imagene']['costo_hoja'] = ($this->request->data['Imagene']['altura']*$this->request->data['Imagene']['base']*($coloresCMYK['usado']/100)*$costoh);
+            $this->request->data['Imagene']['costo_hoja'] = ($this->request->data['Imagene']['altura'] * $this->request->data['Imagene']['base'] * ($coloresCMYK['usado'] / 100) * $costoh);
             $this->request->data['Imagene']['porcentaje'] = $this->request->data['Adjunto']['porcentaje'];
             $this->request->data['Imagene']['trabajo_id'] = $idTrabajo;
             //$this->request->data['Imagene']['cantidad'] = $this->request->data['Adjunto']['cantidad'];
@@ -174,59 +169,60 @@ class TrabajosController extends AppController {
         $this->set(compact('campoform', 'scliente', 'div'));
     }
 
+    public function pruebaimg() {
+        $rutaImagen = 'imagenest' . DS . '54caaada-8c98-4647-b595-1234582ed5fd.jpg';
+        $coloresCMYK = $this->coloresRgb($rutaImagen);
+        debug($coloresCMYK);
+        exit;
+    }
+
     public function coloresRgb($imagen = null) {
         $img = imagecreatefromjpeg($imagen);
-        //demo
         $w = imagesx($img);
         $h = imagesy($img);
         $r = $g = $b = 0;
         $ci = $ma = $ye = $kl = 0;
         $numero_pixeles = $w * $h;
         $aux = 0;
-        //debug($numero_pixeles);
+
         for ($y = 0; $y < $h; $y++) {
             for ($x = 0; $x < $w; $x++) {
-                
                 $rgb = imagecolorat($img, $x, $y);
-                $r += $rgb >> 16;
-                $g += $rgb >> 8 & 255;
-                $b += $rgb & 255;
-                
-                $r = dechex(round($r));
-                $g = dechex(round($g));
-                $b = dechex(round($b));
-
-                if (strlen($r) < 2) {
-                    $r = 0 . $r;
-                }
-                if (strlen($g) < 2) {
-                    $g = 0 . $g;
-                }
-                if (strlen($b) < 2) {
-                    $b = 0 . $b;
-                }
-                $colorRgb = "#" . $r . $g . $b;
-                
-                $toRgb = $this->hex2rgb($colorRgb);
-                if(($toRgb['r'] == 255) && ($toRgb['g'] == 255) && ($toRgb['b']==255))
-                {
+                $r= $rgb >> 16;
+                $g = $rgb >> 8 & 255;
+                $b = $rgb & 255;
+                if (($r == 255) && ($g == 255) && ($b == 255)) {
                     $aux++;
                 }
-                $coloresCMYK = $this->rgb2cmyk($toRgb);
-                $ci = $ci + round($coloresCMYK['c']);
-                $ma = $ma + round($coloresCMYK['m']);
-                $ye = $ye + round($coloresCMYK['y']);
-
-                $kl = $kl + round($coloresCMYK['k']);
                 
+                $cyan = 255 - $r;
+                $magenta = 255 - $g;
+                $yellow = 255 - $b;
+                $black = min($cyan, $magenta, $yellow);
+                
+                $ci = $ci + @(($cyan - $black) / (255 - $black));
+                $ma = $ma + @(($magenta - $black) / (255 - $black));
+                $ye = $ye + @(($yellow - $black) / (255 - $black));
+                $kl = $kl + $black/255;
             }
         }
-        $array['c'] = ($ci*100/($numero_pixeles -$aux));
-        $array['m'] = ($ma*100/($numero_pixeles -$aux));
-        $array['y'] = ($ye*100/($numero_pixeles -$aux));
-        $array['k'] = ($kl*100/($numero_pixeles -$aux));
-        $total_usado = ($numero_pixeles -$aux)*(100/$numero_pixeles);
+        $total_c = $ci + $ma + $ye + $kl;
+        if($total_c != 0)
+        {
+            $array['c'] = ($ci * 100 / ($total_c));
+            $array['m'] = ($ma * 100 / ($total_c));
+            $array['y'] = ($ye * 100 / ($total_c));
+            $array['k'] = ($kl * 100 / ($total_c));
+        }  else {
+            $array['c'] = $ci * 100;
+            $array['m'] = $ma * 100;
+            $array['y'] = $ye * 100;
+            $array['k'] = $kl * 100;
+        }
+        
+        $total_usado = ($numero_pixeles - $aux) * (100 / $numero_pixeles);
         $array['usado'] = $total_usado;
+        
         return $array;
     }
 
@@ -300,6 +296,40 @@ class TrabajosController extends AppController {
         #$px2cm[0] = X
         #$px2cm[1] = Y   
         return $px2cm;
+    }
+    
+    public function sube_imagen()
+    {
+        $this->layout = 'ajax';
+        $numero = $this->request->data['Trabajo']['numero_imagen'];
+        $archivoImagen = $this->request->data['Imagen'][$numero]['imagen'];
+        $nombreOriginal = $this->request->data['Imagen'][$numero]['imagen']['name'];
+        //debug($archivoImagen['error']);exit;
+        $nombre_tipo = explode(".", $nombreOriginal);
+        //debug(end($nombre_tipo));exit;
+        $nombre = string::uuid() . "." . end($nombre_tipo);
+        if ($this->guarda_archivo($archivoImagen, $nombre)){
+            $array['nom_img'] = "imagenest/".$nombre;
+            $merror = "";
+        }else{
+            $merror = "error";
+        }
+        $array['error'] = $merror;
+        $this->respond($array, true);
+        
+    }
+    function respond($message = null, $json = false)
+    {
+        if ($message != null)
+        {
+            if ($json == true)
+            {
+                $this->RequestHandler->setContent('json', 'application/json');
+                $message = json_encode($message);
+            }
+            $this->set('message', $message);
+        }
+        $this->render('message');
     }
 
 }
