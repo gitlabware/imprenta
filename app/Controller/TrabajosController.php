@@ -83,7 +83,7 @@ class TrabajosController extends AppController {
             //$this->request->data['Imagene']['cantidad_imagenes'] = $this->request->data['Trabajo']['cantidad_imagenes'];
             $this->request->data['Imagene']['altura'] = $this->request->data['Adjunto']['altura'];
             $this->request->data['Imagene']['costo_hoja'] = ($this->request->data['Imagene']['altura'] * $this->request->data['Imagene']['base'] * ($coloresCMYK['usado'] / 100) * $costoh);
-            $this->request->data['Imagene']['porcentaje'] = $this->request->data['Adjunto']['porcentaje'];
+            //$this->request->data['Imagene']['porcentaje'] = $this->request->data['Adjunto']['porcentaje'];
             $this->request->data['Imagene']['trabajo_id'] = $idTrabajo;
             //$this->request->data['Imagene']['cantidad'] = $this->request->data['Adjunto']['cantidad'];
             //$this->request->data['Imagene']['cantidad_imagenes'] = $this->request->data['Adjunto']['cantidad_imagenes'];

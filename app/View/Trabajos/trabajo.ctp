@@ -121,16 +121,10 @@
                 + '         <label class="col-sm-4 control-label">Altura</label>'
                 + '         <div class="col-sm-8">'
                 + '             <input type="number" class="form-control" placeholder="Ingrese la cantidad de imagenes" min="1" required name="data[Imagen][' + cantimagenes + '][altura]">'
-                + '         </div>'
-                + '     </div>'
-                + '     <br>'
-                + '     <div class="row">'
-                + '         <label class="col-sm-4 control-label">Porcentaje Impresion</label>'
-                + '         <div class="col-sm-8">'
-                + '             <input type="number" class="form-control" placeholder="Ingrese la cantidad de imagenes" min="1" required name="data[Imagen][' + cantimagenes + '][porcentaje]">'
                 + '             <input type="hidden" name="data[Imagen][' + cantimagenes + '][nombre_url]" id="urlnom'+cantimagenes+'">'
                 + '         </div>'
                 + '     </div>'
+                + '     <br>'
                 + ' </div>'
                 + '</div>';
 
