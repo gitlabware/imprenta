@@ -230,7 +230,7 @@ class TrabajosController extends AppController {
         debug($kl);
         exit;*/
         //CANTIDAD DE TINTA SOBRE EL 100% DE DEL TOTAL USADO
-        if($total_c != 0)
+        /*if($total_c != 0)
         {
             $array['c'] = ($ci * 100 / ($total_c));
             $array['m'] = ($ma * 100 / ($total_c));
@@ -241,12 +241,12 @@ class TrabajosController extends AppController {
             $array['m'] = $ma * 100;
             $array['y'] = $ye * 100;
             $array['k'] = $kl * 100;
-        }
+        }*/
         //CANTIDAD DE TINTA REAL USADA NO AL 100%
-        /*$array['c'] = $ci * 100/$numero_pixeles;
+        $array['c'] = $ci * 100/$numero_pixeles;
         $array['m'] = $ma * 100/$numero_pixeles;
         $array['y'] = $ye * 100/$numero_pixeles;
-        $array['k'] = $kl * 100/$numero_pixeles;*/
+        $array['k'] = $kl * 100/$numero_pixeles;
         
         $total_usado = ($numero_pixeles - $aux) * (100 / $numero_pixeles);
         $array['usado'] = $total_usado;
