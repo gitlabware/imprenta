@@ -25,8 +25,12 @@
                         <td class="<?php echo $clase; ?>"><?php echo $tra['Trabajo']['descripcion']; ?></td>
                         <td class="<?php echo $clase; ?>"><?php echo $tra['Cliente']['nombre']; ?></td>
                         <td class="<?php echo $clase; ?>">
+                            
                             <a href="<?php echo $this->Html->url(array('action' => 'vista_trabajo', $tra['Trabajo']['id'])); ?>" class="btn btn-info btn-sm btn-icon icon-left"><i class="entypo-eye"></i>Ver Trabajo</a>
-                            <?php if ($tra['Trabajo']['estado'] != "Facturado"): ?>
+                            <?php if ($tra['Trabajo']['estado'] == "0"): ?>
+                            <a href="<?php echo $this->Html->url(array('action' => 'trabajo', $tra['Trabajo']['id'])); ?>" class="btn btn-gold btn-sm btn-icon icon-left"><i class="entypo-pencil"></i>Editar</a>
+                            <?php endif;?>
+                                <?php if ($tra['Trabajo']['estado'] != "Facturado" && $tra['Trabajo']['estado'] != "0"): ?>
                                 <a href="<?php echo $this->Html->url(array('controller' => 'Facturas', 'action' => 'genera_factura', $tra['Trabajo']['id'])); ?>" class="btn btn-success btn-sm btn-icon icon-left"><i class="entypo-newspaper"></i>Facturar</a>
                             <?php endif; ?>
                         </td>

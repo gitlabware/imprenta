@@ -82,7 +82,7 @@
 
                     reader.onload = function (re) {
 
-                        var $img = $('<img>').attr('src', '../img/Circulo-Carga-62157.gif')
+                        var $img = $('<img>').attr('src', urlcargando)
                         e.target.files[0].result = re.target.result
 
                         element.find('.fileinput-filename').text(file.name)

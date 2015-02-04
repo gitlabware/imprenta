@@ -19,7 +19,7 @@
                         <td><?php echo $pa['Parametrosfactura']['fechalimite']; ?></td>
                         <td>
                             <a href="javascript:" onclick="cargarmodal('<?php echo $this->Html->url(array('action' => 'parametrofactura', $pa['Parametrosfactura']['id'])) ?>');" class="btn btn-default btn-sm btn-icon icon-left"><i class="entypo-pencil"></i>Editar</a>
-                            <?php echo $this->Html->link('<i class="entypo-cancel"></i>Eliminar',array('action'=>'delete', $pa['Parametrosfactura']['id']),array('class'=>'btn btn-danger btn-sm btn-icon icon-left','escape'=>false,'confirm'=>'Esta seguro de eliminar la docificacion '.$pa['Parametrosfactura']['numero_autorizacion']));?>
+                            <?php echo $this->Html->link('<i class="entypo-cancel"></i>Eliminar',array('action'=>'elimina_parametro', $pa['Parametrosfactura']['id']),array('class'=>'btn btn-danger btn-sm btn-icon icon-left','escape'=>false,'confirm'=>'Esta seguro de eliminar la docificacion '.$pa['Parametrosfactura']['numero_autorizacion']));?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

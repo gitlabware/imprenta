@@ -34,8 +34,7 @@
                     </a>
 
                     <div class="image-options">
-                        <a href="#" class="edit"><i class="entypo-pencil"></i></a>
-                        <a href="#" class="delete"><i class="entypo-cancel"></i></a>
+                        
                     </div>
                 </article>
             </div>
@@ -174,7 +173,6 @@
                 
 
             </div>
-
         </div>
     <?php endforeach; ?>
 

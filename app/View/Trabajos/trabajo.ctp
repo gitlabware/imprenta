@@ -9,11 +9,20 @@
             </div>
             <div class="panel-body">
                 <?php echo $this->Form->create('Trabajo', array('action' => 'guarda_trabajo', 'class' => 'form-horizontal form-groups-bordered', 'enctype' => 'multipart/form-data', 'id' => 'formtrabajo'), array('type' => 'file')); ?>
+                <?php echo $this->Form->hidden('id');?>
                 <div class="form-group" id="idseleccli">
                     <label class="col-sm-3 control-label">Cliente</label>
                     <div class="col-sm-5">
                         <div id="divselectcliente">
-                            <button type="button" class="btn btn-primary btn-block" onclick="cargarmodal2('<?php echo $this->Html->url(array('action' => 'comboclientes1', 'Trabajo.cliente_id', 'divselectcliente')); ?>');">SELECCIONE AL CLIENTE</button>
+                            <button type="button" class="btn btn-primary btn-block" onclick="cargarmodal2('<?php echo $this->Html->url(array('action' => 'comboclientes1', 'Trabajo.cliente_id', 'divselectcliente')); ?>');">
+                            <?php 
+                            if(empty($this->request->data['Trabajo']['cliente_id'])){
+                                echo 'SELECCIONE AL CLIENTE';
+                            }else{
+                                echo $this->request->data['Cliente']['nombre'];
+                            }
+                            ?>
+                            </button>
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -26,11 +35,11 @@
                 <div class="form-group" style="display: none;" id="idnuevocli">
                     <label class="col-sm-2 control-label">Nombre</label>
                     <div class="col-sm-4">
-                        <?php echo $this->Form->text('Cliente.nombre', array('class' => 'form-control', 'id' => 'idclinom', 'placeholder' => 'Ingrese nombre del cliente')); ?>
+                        <?php echo $this->Form->text('Cliente.nombre', array('class' => 'form-control', 'id' => 'idclinom', 'placeholder' => 'Ingrese nombre del cliente','value' => '')); ?>
                     </div>
                     <label class="col-sm-2 control-label">NIT/CI</label>
                     <div class="col-sm-2">
-                        <?php echo $this->Form->text('Cliente.nit', array('class' => 'form-control', 'id' => 'idclinit', 'placeholder' => 'Ingrese nit o ci del cliente')); ?>
+                        <?php echo $this->Form->text('Cliente.nit', array('class' => 'form-control', 'id' => 'idclinit', 'placeholder' => 'Ingrese nit o ci del cliente','value' => '')); ?>
                     </div>
                     <div class="col-md-2">
                         <button type="button" class="btn btn-info" onclick="jQuery('#idnuevocli').toggle(400);
@@ -85,10 +94,24 @@
 <?php echo $this->Html->script(array('fileinput.js'), array('block' => 'scriptadd')); ?>
 
 <script>
+    var urlcargando = '<?php echo $this->webroot.'img/Circulo-Carga-62157.gif'?>';
     var cantimagenes = 0;
 
     var bloqueimagen = '';
-    add_imagen();
+    <?php if(empty($idTrabajo)):?>
+        add_imagen();
+    <?php else:?>
+        <?php foreach($imagenes as $img):?>
+                //cantimagenes++;
+                add_imagen();
+                jQuery('#inp-'+cantimagenes).attr('required',false);
+                jQuery('#idimgsrc'+cantimagenes).attr('src','<?php echo $this->webroot.$img['Imagene']['url'];?>');
+                jQuery('#idbase'+cantimagenes).val('<?php echo $img['Imagene']['base']?>');
+                jQuery('#idaltura'+cantimagenes).val('<?php echo $img['Imagene']['altura']?>');
+                jQuery('#urlnom'+cantimagenes).val('<?php echo $img['Imagene']['url']?>');
+        <?php endforeach;?>
+    <?php endif;?>
+    
     function add_imagen()
     {
         cantimagenes++;
@@ -97,7 +120,7 @@
                 + '<label class="col-sm-2 control-label">Cargado de Imagenes # ' + cantimagenes + '</label>'
                 + ' <div class="col-sm-4">'
                 + '     <div class="fileinput fileinput-new" data-provides="fileinput">'
-                + '         <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;" data-trigger="fileinput"><img src="http://placehold.it/200x150" alt="..."></div>'
+                + '         <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;" data-trigger="fileinput"><img id="idimgsrc'+cantimagenes+'" src="http://placehold.it/200x150" alt="..."></div>'
                 + '         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px"></div>'
                 + '         <div>'
                 + '             <span class="btn btn-white btn-file">'
@@ -113,14 +136,14 @@
                 + '     <div class="row">'
                 + '         <label class="col-sm-4 control-label">Base</label>'
                 + '         <div class="col-sm-8">'
-                + '             <input type="number" class="form-control" placeholder="Ingrese la cantidad" min="1" required name="data[Imagen][' + cantimagenes + '][base]">'
+                + '             <input type="number" id="idbase'+cantimagenes+'" class="form-control" placeholder="Ingrese la cantidad" min="1" required name="data[Imagen][' + cantimagenes + '][base]">'
                 + '         </div>'
                 + '     </div>'
                 + '     <br>'
                 + '     <div class="row">'
                 + '         <label class="col-sm-4 control-label">Altura</label>'
                 + '         <div class="col-sm-8">'
-                + '             <input type="number" class="form-control" placeholder="Ingrese la cantidad de imagenes" min="1" required name="data[Imagen][' + cantimagenes + '][altura]">'
+                + '             <input type="number" id="idaltura'+cantimagenes+'" class="form-control" placeholder="Ingrese la cantidad de imagenes" min="1" required name="data[Imagen][' + cantimagenes + '][altura]">'
                 + '             <input type="hidden" name="data[Imagen][' + cantimagenes + '][nombre_url]" id="urlnom'+cantimagenes+'">'
                 + '         </div>'
                 + '     </div>'
@@ -140,7 +163,6 @@
             cantimagenes--;
         }
     }
-
     function sube_imagen(numeroimg, e, re, preview, element, file)
     {
         jQuery('#idregistrar').attr('disabled',true);

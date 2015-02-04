@@ -11,9 +11,17 @@ class TrabajosController extends AppController {
         //$this->Auth->allow();
     }
 
-    public function trabajo() {
+    public function trabajo($idTrabajo = null) {
+        $this->Trabajo->id = $idTrabajo;
+        $this->request->data = $this->Trabajo->read();
+        $imagenes = array();
+        if(!empty($idTrabajo))
+        {
+            $imagenes = $this->Imagene->find('all',array('recursive' => -1,'order' => 'Imagene.id ASC','conditions' => array('Imagene.trabajo_id' => $idTrabajo)));
+        }
+        //debug($imagenes);exit;
         $papeles = $this->Insumo->find('list', array('fields' => 'Insumo.nombre', 'conditions' => array('Insumo.tipo_id' => 1)));
-        $this->set(compact('clientes', 'papeles'));
+        $this->set(compact('clientes', 'papeles','imagenes','idTrabajo'));
     }
     
     public function guarda_trabajo() {
@@ -34,7 +42,15 @@ class TrabajosController extends AppController {
             }
             $this->Trabajo->create();
             $this->Trabajo->save($this->request->data['Trabajo']);
-            $idTrabajo = $this->Trabajo->getLastInsertID();
+            
+            if(!empty($this->request->data['Trabajo']['id']))
+            {
+                $idTrabajo = $this->request->data['Trabajo']['id'];
+            }else{
+                $idTrabajo = $this->Trabajo->getLastInsertID();
+            }
+            //debug($idTrabajo);exit;
+            $this->Imagene->deleteAll(array('Imagene.trabajo_id' => $idTrabajo));
             foreach ($this->request->data['Imagen'] as $img) {
                 $this->request->data['Adjunto'] = $img;
                 $this->carga_adjunto($idTrabajo, $costo);
@@ -46,7 +62,7 @@ class TrabajosController extends AppController {
 
     public function vista_trabajo($idTrabajo = NULL) {
         $trabajo = $this->Trabajo->findByid($idTrabajo);
-        $imagenes = $this->Imagene->findAllBytrabajo_id($idTrabajo, NULL, NULL, NULL, NULL, -1);
+        $imagenes = $this->Imagene->findAllBytrabajo_id($idTrabajo, NULL, array('Imagene.id ASC'), NULL, NULL, -1);
         $this->set(compact('imagenes', 'trabajo'));
         //debug($trabajo);exit;
         //debug($imagenes);exit;
@@ -207,6 +223,13 @@ class TrabajosController extends AppController {
             }
         }
         $total_c = $ci + $ma + $ye + $kl;
+        /*debug($numero_pixeles);
+        debug($ci);
+        debug($ma);
+        debug($ye);
+        debug($kl);
+        exit;*/
+        //CANTIDAD DE TINTA SOBRE EL 100% DE DEL TOTAL USADO
         if($total_c != 0)
         {
             $array['c'] = ($ci * 100 / ($total_c));
@@ -219,6 +242,11 @@ class TrabajosController extends AppController {
             $array['y'] = $ye * 100;
             $array['k'] = $kl * 100;
         }
+        //CANTIDAD DE TINTA REAL USADA NO AL 100%
+        /*$array['c'] = $ci * 100/$numero_pixeles;
+        $array['m'] = $ma * 100/$numero_pixeles;
+        $array['y'] = $ye * 100/$numero_pixeles;
+        $array['k'] = $kl * 100/$numero_pixeles;*/
         
         $total_usado = ($numero_pixeles - $aux) * (100 / $numero_pixeles);
         $array['usado'] = $total_usado;
@@ -301,19 +329,22 @@ class TrabajosController extends AppController {
     public function sube_imagen()
     {
         $this->layout = 'ajax';
+        
         $numero = $this->request->data['Trabajo']['numero_imagen'];
         $archivoImagen = $this->request->data['Imagen'][$numero]['imagen'];
         $nombreOriginal = $this->request->data['Imagen'][$numero]['imagen']['name'];
         //debug($archivoImagen['error']);exit;
         $nombre_tipo = explode(".", $nombreOriginal);
         //debug(end($nombre_tipo));exit;
-        $nombre = string::uuid() . "." . end($nombre_tipo);
+        //debug(uniqid('', true));exit;
+        $nombre = uniqid('', true) . "." . end($nombre_tipo);
         if ($this->guarda_archivo($archivoImagen, $nombre)){
             $array['nom_img'] = "imagenest/".$nombre;
             $merror = "";
         }else{
             $merror = "error";
         }
+        
         $array['error'] = $merror;
         $this->respond($array, true);
         

@@ -73,5 +73,12 @@ class FacturasController extends AppController {
             $this->redirect($this->referer());
         }
     }
+    
+    public function elimina_parametro($idParametro = null)
+    {
+        $this->Parametrosfactura->delete($idParametro);
+        $this->Session->setFlash("Se elimino correctamente!!",'msgbueno');
+        $this->redirect(array('action' => 'listaparametros'));
+    }
 
 }
